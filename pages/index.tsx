@@ -24,7 +24,7 @@ export default function Home() {
                             <h1 className="text-7xl">Joeri <br/> Schenk</h1>
                             <p className="text-xl text-turquoise font-medium">&gt; Software engineer</p>
                         </div>
-                        <div className="pb-20 space-y-2">
+                        <div className="pb-24 lg:pb-20 space-y-2">
                             <p className="text-lynch hidden lg:flex">
                                 &#47;&#47; complete the game to continue
                             </p>
@@ -42,7 +42,7 @@ export default function Home() {
                                 <span className="text-turquoise">
                                 {" "}githublink
                             </span>
-                                {" "}= <span className="text-[#E99287]">&quot;https://github.com/joeri157&quot;</span>;
+                                {" "}= <span className="text-[#E99287]">&quot;https://github.com/joeri5&quot;</span>;
                             </p>
                         </div>
                     </div>

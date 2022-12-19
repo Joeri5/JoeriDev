@@ -37,6 +37,7 @@ const About = () => {
                         </div>
                         <div className="border-r-2 border-r-mirage">
                             <Folder/>
+                            {/*comment*/}
                         </div>
                         <div
                             className={`translate-x-[45vw] ${file ? "" : "border-l-2 border-l-mirage"} hidden lg:flex lg:flex-col w-[calc(100vw-15.425rem-5.25rem-45vw)]`}>

@@ -7,6 +7,7 @@ import Folder from "../components/about/folder";
 import {selectFile} from "../redux/slices/fileSlice";
 import Highlight from 'react-highlight'
 import Code from "../components/about/code";
+import {codeData} from "../data/code.data";
 
 const About = () => {
     const file = useAppSelector(selectFile);
@@ -49,16 +50,26 @@ const About = () => {
                             <div
                                 className="py-5 px-10 h-[calc(100vh-9.6375rem)] overflow-y-scroll w-full whitespace-normal space-y-5 scrollbar">
                                 <p className="text-lynch">&#47;&#47; code snippet showcase:</p>
-                                <Code/>
-                                <Code/>
-                                <Code/>
+                                {codeData.map((code, index) => (
+                                    <Code
+                                        key={index}
+                                        code={code.code}
+                                        timeStamp={code.timeStamp}
+                                        detailsContent={code.detailsContent}
+                                    />
+                                ))}
                             </div>
                         </div>
                         <div className="lg:hidden px-5 py-7 space-y-5">
                             <p className="text-lynch">&#47;&#47; code snippet showcase:</p>
-                            <Code/>
-                            <Code/>
-                            <Code/>
+                            {codeData.map((code, index) => (
+                                <Code
+                                    key={index}
+                                    code={code.code}
+                                    timeStamp={code.timeStamp}
+                                    detailsContent={code.detailsContent}
+                                />
+                            ))}
                         </div>
                     </div>
                 </main>

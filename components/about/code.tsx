@@ -1,7 +1,13 @@
 import React, {useEffect, useState} from 'react';
 import Highlight from "react-highlight";
 
-const Code = () => {
+interface Props {
+    code: string
+    timeStamp: string
+    detailsContent: string
+}
+
+const Code = ({code, timeStamp, detailsContent}: Props) => {
 
     const [timeAgo, setTimeAgo] = useState("");
     const [details, setDetails] = useState(false);
@@ -35,7 +41,7 @@ const Code = () => {
 
     useEffect(() => {
         const interval = setInterval(() => {
-            setTimeAgo(getTimeAgo(new Date("2022-12-19 18:29:00")));
+            setTimeAgo(getTimeAgo(new Date(timeStamp)));
         }, 1000);
 
         return () => clearInterval(interval);
@@ -60,20 +66,13 @@ const Code = () => {
             </div>
             <div className="text-xs 2xl:text-sm">
                 <Highlight className="typescript">
-                    {`function initializeModelChunk<T>(chunk: ResolvedModelChunk): T { 
-    const value: T = parseModel(chunk._response, chunk._value);
-    const initializedChunk: InitializedChunk<T> = (chunk: any);
-    initializedChunk._status = INITIALIZED;
-    initializedChunk._value = value;
-    return value;
-}`}
+                    {code}
                 </Highlight>
             </div>
             {details && (
                 <div className="border-t-2 border-mirage flex justify-between py-5 space-x-16">
                     <p className="text-lynch">
-                        My work here was 5 months ago. It was for the project called “...”. Some other text can be
-                        placed here.
+                        {detailsContent}
                     </p>
                     <button onClick={() => setDetails(false)}>
                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5}

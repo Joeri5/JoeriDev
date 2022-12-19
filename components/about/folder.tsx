@@ -159,7 +159,7 @@ const Folder = () => {
                                              className="w-full h-[30px] flex items-center space-x-5"
                                              onClick={() => toggleSubFolder(index, subIndex)}>
                                             <img src="/arrow-right.svg" alt="arrow svg"
-                                                 className={`h-2.5 w-2.5 ${subFolder.open ? "rotate-90" : ""}`}/>
+                                                 className={`h-2.5 w-2.5 ${subFolder.open ? "rotate-90" : ""} ${menu ? "opacity-0" : ""}`}/>
                                             {subFolder.folderColor === "pink" && (
                                                 <img src="/folder-pink.svg" alt="pink folder"/>
                                             )}

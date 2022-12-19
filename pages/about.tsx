@@ -45,7 +45,7 @@ const About = () => {
                                 className="h-[2.6375rem] w-full border-b-2 border-b-mirage w-full">
                             </div>
                             <div className="py-5 px-10 w-full whitespace-normal">
-                                <p className="text-lynch">// code snippet showcase:</p>
+                                <p className="text-lynch">&#47;&#47; code snippet showcase:</p>
                             </div>
                         </div>
                     </div>

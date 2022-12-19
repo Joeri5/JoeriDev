@@ -214,7 +214,7 @@ const Folder = () => {
                                                                     <div key={subFileIndex}
                                                                          className="w-full lg:w-[45vw] flex items-center space-x-5 lg:space-x-0">
                                                                         <p className={`${subFile.open ? "text-white" : "text-lynch"} lg:hidden hover:text-white`}>
-                                                                            //{" "}{folder.title} <span
+                                                                            &#47;&#47;{" "}{folder.title} <span
                                                                             className="text-lynch"> / {subFolder.title}</span>
                                                                         </p>
                                                                         <p className="border-b-2 border-mirage w-full px-5 py-[0.4125rem] text-lynch hidden lg:block">

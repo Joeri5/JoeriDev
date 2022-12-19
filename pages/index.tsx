@@ -26,13 +26,13 @@ export default function Home() {
                         </div>
                         <div className="pb-20 space-y-2">
                             <p className="text-lynch hidden lg:flex">
-                                // complete the game to continue
+                                &#47;&#47; complete the game to continue
                             </p>
                             <p className="text-lynch hidden lg:flex">
-                                // you can also view the source code on my github page
+                                &#47;&#47; you can also view the source code on my github page
                             </p>
                             <p className="text-lynch lg:hidden">
-                                // find my profile on Github:
+                                &#47;&#47; find my profile on Github:
                             </p>
                             <p className="text-white">
                             <span className="text-[#4D5BCE]">
@@ -42,7 +42,7 @@ export default function Home() {
                                 <span className="text-turquoise">
                                 {" "}githublink
                             </span>
-                                {" "}= <span className="text-[#E99287]">"https://github.com/joeri157"</span>;
+                                {" "}= <span className="text-[#E99287]">&quot;https://github.com/joeri157&quot;</span>;
                             </p>
                         </div>
                     </div>

@@ -108,6 +108,7 @@ const Folder = () => {
             ]
         },
     ])
+
     const menu = useAppSelector(selectMenu);
     const file = useAppSelector(selectFile);
     const dispatch = useDispatch();
@@ -239,7 +240,7 @@ const Folder = () => {
                                                             {subFile.open && (
                                                                 <>
                                                                     <div key={subFileIndex}
-                                                                         className="w-full lg:w-[45vw] flex items-center space-x-5 lg:space-x-0">
+                                                                         className="w-full lg:w-[35vw] flex items-center space-x-5 lg:space-x-0">
                                                                         <p className={`${subFile.open ? "text-white" : "text-lynch"} lg:hidden hover:text-white`}>
                                                                             &#47;&#47;{" "}{folder.title} <span
                                                                             className="text-lynch"> / {subFolder.title}</span>

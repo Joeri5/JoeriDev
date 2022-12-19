@@ -1,0 +1,90 @@
+import React, {useEffect, useState} from 'react';
+import Highlight from "react-highlight";
+
+const Code = () => {
+
+    const [timeAgo, setTimeAgo] = useState("");
+    const [details, setDetails] = useState(false);
+
+    const getTimeAgo = (date: Date) => {
+        const seconds = Math.floor((new Date().getTime() - date.getTime()) / 1000);
+
+        let interval = Math.floor(seconds / 31536000);
+
+        if (interval > 1) {
+            return interval + " years";
+        }
+        interval = Math.floor(seconds / 2592000);
+        if (interval > 1) {
+            return interval + " months";
+        }
+        interval = Math.floor(seconds / 86400);
+        if (interval > 1) {
+            return interval + " days";
+        }
+        interval = Math.floor(seconds / 3600);
+        if (interval > 1) {
+            return interval + " hours";
+        }
+        interval = Math.floor(seconds / 60);
+        if (interval > 1) {
+            return interval + " minutes";
+        }
+        return Math.floor(seconds) + " seconds";
+    }
+
+    useEffect(() => {
+        const interval = setInterval(() => {
+            setTimeAgo(getTimeAgo(new Date("2022-12-19 18:29:00")));
+        }, 1000);
+
+        return () => clearInterval(interval);
+    }, [])
+
+    return (
+        <div className="space-y-5">
+            <div className="flex w-full justify-between">
+                <div className="flex space-x-5 items-center">
+                    <img src="/profile-image.png" alt="profile image" className="w-10 h-10 rounded-full"/>
+                    <div>
+                        <p className="text-royal-blue">@joeri</p>
+                        <p className="text-sm text-lynch">
+                            {timeAgo} ago
+                        </p>
+                    </div>
+                </div>
+                <div className="flex items-center space-x-5" onClick={() => setDetails(!details)}>
+                    <img src="/details.svg" alt="details icon" className="w-5 h-5"/>
+                    <p className="text-lynch">details</p>
+                </div>
+            </div>
+            <div className="text-xs 2xl:text-sm">
+                <Highlight className="typescript">
+                    {`function initializeModelChunk<T>(chunk: ResolvedModelChunk): T { 
+    const value: T = parseModel(chunk._response, chunk._value);
+    const initializedChunk: InitializedChunk<T> = (chunk: any);
+    initializedChunk._status = INITIALIZED;
+    initializedChunk._value = value;
+    return value;
+}`}
+                </Highlight>
+            </div>
+            {details && (
+                <div className="border-t-2 border-mirage flex justify-between py-5 space-x-16">
+                    <p className="text-lynch">
+                        My work here was 5 months ago. It was for the project called “...”. Some other text can be
+                        placed here.
+                    </p>
+                    <button onClick={() => setDetails(false)}>
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5}
+                             stroke="currentColor" className="w-6 h-6 text-lynch">
+                            <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12"/>
+                        </svg>
+                    </button>
+                </div>
+            )}
+        </div>
+    );
+};
+
+export default Code;

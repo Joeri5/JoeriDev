@@ -5,6 +5,8 @@ import {useAppSelector} from "../redux/store";
 import {selectMenu} from "../redux/slices/menuSlice";
 import Folder from "../components/about/folder";
 import {selectFile} from "../redux/slices/fileSlice";
+import Highlight from 'react-highlight'
+import Code from "../components/about/code";
 
 const About = () => {
     const file = useAppSelector(selectFile);
@@ -40,13 +42,23 @@ const About = () => {
                             {/*comment*/}
                         </div>
                         <div
-                            className={`translate-x-[45vw] ${file ? "" : "border-l-2 border-l-mirage"} hidden lg:flex lg:flex-col w-[calc(100vw-15.425rem-5.25rem-45vw)]`}>
+                            className={`translate-x-[35vw] ${file ? "" : "border-l-2 border-l-mirage"} hidden lg:flex lg:flex-col w-[calc(100vw-15.425rem-5.25rem-35vw)]`}>
                             <div
                                 className="h-[2.6375rem] w-full border-b-2 border-b-mirage w-full">
                             </div>
-                            <div className="py-5 px-10 w-full whitespace-normal">
+                            <div
+                                className="py-5 px-10 h-[calc(100vh-9.6375rem)] overflow-y-scroll w-full whitespace-normal space-y-5 scrollbar">
                                 <p className="text-lynch">&#47;&#47; code snippet showcase:</p>
+                                <Code/>
+                                <Code/>
+                                <Code/>
                             </div>
+                        </div>
+                        <div className="lg:hidden px-5 py-7 space-y-5">
+                            <p className="text-lynch">&#47;&#47; code snippet showcase:</p>
+                            <Code/>
+                            <Code/>
+                            <Code/>
                         </div>
                     </div>
                 </main>

@@ -13,9 +13,37 @@ const Folder = () => {
                         {
                             title: "bio.md", open: false, content: [
                                 {
-                                    content: "I have 5 years of experience in web development lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore\n" +
-                                        "magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris\n" +
-                                        "nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat officia deserunt mollit anim id est laborum.\n"
+                                    content: `/**
+                                                         * About me
+                                                         * I have 5 years of еxperience in web
+                                                         * development lorem ipsum dolor sit amet, 
+                                                         * consectetur adipiscing elit, sed do eiusmod
+                                                         * tempor incididunt ut labore et dolore
+                                                         * magna aliqua. Ut enim ad minim veniam,
+                                                         * quis nostrud exercitation ullamco laboris
+                                                         * nisi ut aliquip ex ea commodo consequat.
+                                                         * Duis aute irure dolor in reprehenderit in
+                                                         *
+                                                         * Duis aute irure dolor in reprehenderit in
+                                                         * voluptate velit esse cillum dolore eu fugiat 
+                                                         * nulla pariatur. Excepteur sint occaecat 
+                                                         * officia deserunt mollit anim id est laborum.
+                                                     */`,
+                                    contentMobile: `/**
+                                                         About me
+                                                         I have 5 years of еxperience in web
+                                                         development lorem ipsum dolor sit amet, 
+                                                         consectetur adipiscing elit, sed do eiusmod
+                                                         tempor incididunt ut labore et dolore
+                                                         magna aliqua. Ut enim ad minim veniam,
+                                                         quis nostrud exercitation ullamco laboris
+                                                         nisi ut aliquip ex ea commodo consequat.
+                                                         Duis aute irure dolor in reprehenderit in
+                                                         Duis aute irure dolor in reprehenderit in
+                                                         voluptate velit esse cillum dolore eu fugiat 
+                                                         nulla pariatur. Excepteur sint occaecat 
+                                                         officia deserunt mollit anim id est laborum.
+                                                     */`,
                                 }
                             ]
                         }
@@ -25,7 +53,7 @@ const Folder = () => {
                     title: "interests", folderColor: "turquoise", open: false, subFiles: [
                         {
                             title: "interests.md", open: false, content: [
-                                {content: "title"}
+                                {content: "title", contentMobile: ``}
                             ]
                         }
                     ]
@@ -34,7 +62,7 @@ const Folder = () => {
                     title: "education", folderColor: "purple", open: false, subFiles: [
                         {
                             title: "education.md", open: false, content: [
-                                {content: "title"}
+                                {content: "title", contentMobile: ``}
                             ]
                         }
                     ]
@@ -47,7 +75,7 @@ const Folder = () => {
                     title: "name", folderColor: "pink", open: false, subFiles: [
                         {
                             title: "name", open: false, content: [
-                                {content: "title"}
+                                {content: "title", contentMobile: ``}
                             ]
                         }
                     ]
@@ -60,7 +88,7 @@ const Folder = () => {
                     title: "name", folderColor: "pink", open: false, subFiles: [
                         {
                             title: "name", open: false, content: [
-                                {content: "title"}
+                                {content: "title", contentMobile: ``}
                             ]
                         }
                     ]
@@ -73,7 +101,7 @@ const Folder = () => {
                     title: "name", folderColor: "pink", open: false, subFiles: [
                         {
                             title: "name", open: false, content: [
-                                {content: "title"}
+                                {content: "title", contentMobile: ``}
                             ]
                         }
                     ]
@@ -201,7 +229,7 @@ const Folder = () => {
                 {aboutFolders.map((folder, index) => (
                     <>
                         {folder.open && (
-                            <div className="px-5 lg:px-0 py-3 lg:py-0">
+                            <div className="px-5 lg:px-0 py-10 lg:py-0">
                                 {folder.subFolders.map((subFolder, subIndex) => (
                                     <>
                                         {subFolder.open && (
@@ -240,12 +268,27 @@ const Folder = () => {
                                                                             </span>
                                                                         </p>
                                                                     </div>
-                                                                    {subFile.content.map((content, contentIndex) => (
-                                                                        <div key={contentIndex}
-                                                                             className="py-5">
-                                                                            <p className="text-lynch lg:px-5">{content.content}</p>
-                                                                        </div>
-                                                                    ))}
+                                                                    {subFile.content.map((content, contentIndex) => {
+                                                                        const lines = content.content.split('\n');
+
+                                                                        return (
+                                                                            <div key={contentIndex} className="py-5">
+                                                                                <div>
+                                                                                    {lines.map((line, lineIndex) => (
+                                                                                        <p key={lineIndex}
+                                                                                           className="text-lynch lg:px-5 lg:flex lg:flex-row hidden">
+                                                                                            <span
+                                                                                                className={`hidden lg:flex ${lineIndex >= 9 ? "pr-[20px]" : "pr-[30px]"}`}>{lineIndex + 1}</span>
+                                                                                            {line}
+                                                                                        </p>
+                                                                                    ))}
+                                                                                </div>
+                                                                            </div>
+                                                                        );
+                                                                    })}
+                                                                    <p className="text-lynch lg:hidden">
+                                                                        {subFile.content[0].contentMobile}
+                                                                    </p>
                                                                 </>
                                                             )}
                                                         </>

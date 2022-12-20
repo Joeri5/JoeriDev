@@ -1,4 +1,4 @@
-import React, {CSSProperties, useState} from "react";
+import React, {CSSProperties, useEffect, useState} from "react";
 import Food from "./food";
 import Snake from "./snake";
 import InfoScore from "./infoScore";
@@ -15,7 +15,7 @@ const getRandomCoords = () => {
 
 const initialState = {
     food: getRandomCoords(),
-    speed: 350,
+    speed: 100,
     pause: true,
     play: false,
     foodCount: 0,
@@ -66,27 +66,6 @@ class Game extends React.Component {
 
     }
 
-    checkIfEat() {
-        let head = this.state.snakeDots[this.state.snakeDots.length - 1];
-        const THRESHOLD = 3;
-
-// Calculate the distance between the head of the snake and the food
-        let distance = Math.sqrt(Math.pow(head[0] - this.state.food[0], 2) + Math.pow(head[1] - this.state.food[1], 2));
-
-// Check if the distance is less than the threshold
-        if (distance < THRESHOLD) {
-            // The snake has eaten the food, so you can increase the food count and generate a new food
-            let newSnake = [...this.state.snakeDots];
-            newSnake.unshift([])
-            this.setState({
-                snakeDots: newSnake
-            })
-            this.setState({food: getRandomCoords()})
-            this.countFood()
-            this.enlargeSnake()
-        }
-    }
-
     countFood = () => {
         this.setState({foodCount: this.state.foodCount + 1})
     }
@@ -119,7 +98,6 @@ class Game extends React.Component {
             this.setState({
                 snakeDots: dots
             })
-            this.checkIfEat()
         }
     }
 
@@ -139,6 +117,38 @@ class Game extends React.Component {
                 this.onGameOver();
             }
         })
+    }
+
+    checkIfEat() {
+        let head = this.state.snakeDots[this.state.snakeDots.length - 1];
+        const THRESHOLD = 10;
+
+// Calculate the distance between the head of the snake and the food
+        let distance = Math.sqrt(Math.pow(head[0] - this.state.food[0], 2) + Math.pow(head[1] - this.state.food[1], 2));
+
+// Check if the distance is less than the threshold
+        if (distance < THRESHOLD) {
+            // The snake has eaten the food, so you can increase the food count and generate a new food
+            let newSnake = [...this.state.snakeDots];
+            newSnake.unshift([])
+            this.setState({
+                snakeDots: newSnake
+            })
+            this.setState({food: getRandomCoords()})
+            this.countFood()
+            this.enlargeSnake()
+        }
+
+        if (head[0] == this.state.food[0] && head[1] == this.state.food[1]) {
+            let newSnake = [...this.state.snakeDots];
+            newSnake.unshift([])
+            this.setState({
+                snakeDots: newSnake
+            })
+            this.setState({food: getRandomCoords()})
+            this.countFood()
+            this.enlargeSnake()
+        }
     }
 
 
@@ -227,8 +237,7 @@ class Game extends React.Component {
                     <div className={`game-area ml-14 ${this.state.pause ? "bg-gray-500" : "bg-gray-200"} rounded-lg`}>
                         <Snake snakeDots={this.state.snakeDots}/>
                         <Food dot={this.state.food}/>
-                        <InfoScore score={this.state.snakeDots.length} foodCount={this.state.foodCount}
-                                   foodLeft={this.foodLeft()}/>
+                        <InfoScore score={this.state.snakeDots.length}/>
                     </div>
                 </div>
                 <div className="absolute right-0 mr-14 top-14 space-y-7">

@@ -3,8 +3,6 @@ import useLocalStorage from "../../hooks/useLocalStorage";
 
 interface InfoScoreProps {
     score: number;
-    foodCount: number;
-    foodLeft: number;
 }
 
 export default function InfoScore(props: InfoScoreProps) {

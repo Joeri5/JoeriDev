@@ -15,7 +15,7 @@ const getRandomCoords = () => {
 
 const initialState = {
     food: getRandomCoords(),
-    speed: 100,
+    speed: 350,
     pause: true,
     play: false,
     foodCount: 0,
@@ -66,6 +66,27 @@ class Game extends React.Component {
 
     }
 
+    checkIfEat() {
+        let head = this.state.snakeDots[this.state.snakeDots.length - 1];
+        const THRESHOLD = 3;
+
+// Calculate the distance between the head of the snake and the food
+        let distance = Math.sqrt(Math.pow(head[0] - this.state.food[0], 2) + Math.pow(head[1] - this.state.food[1], 2));
+
+// Check if the distance is less than the threshold
+        if (distance < THRESHOLD) {
+            // The snake has eaten the food, so you can increase the food count and generate a new food
+            let newSnake = [...this.state.snakeDots];
+            newSnake.unshift([])
+            this.setState({
+                snakeDots: newSnake
+            })
+            this.setState({food: getRandomCoords()})
+            this.countFood()
+            this.enlargeSnake()
+        }
+    }
+
     countFood = () => {
         this.setState({foodCount: this.state.foodCount + 1})
     }
@@ -75,30 +96,30 @@ class Game extends React.Component {
     }
 
     moveSnake = () => {
-        let dots = [...this.state.snakeDots]
-        let head = dots[dots.length - 1]
+        let dots = [...this.state.snakeDots];
+        let head = dots[dots.length - 1];
 
         switch (this.state.direction) {
             case 'RIGHT':
-                head = [head[0] + 2, head[1]]
+                head = [head[0] + 2, head[1]];
                 break;
             case 'LEFT':
-                head = [head[0] - 2, head[1]]
+                head = [head[0] - 2, head[1]];
                 break;
             case 'DOWN':
-                head = [head[0], head[1] + 2]
+                head = [head[0], head[1] + 2];
                 break;
             case 'UP':
-                head = [head[0], head[1] - 2]
+                head = [head[0], head[1] - 2];
                 break;
         }
-        if (!this.state.pause && this.state.play) {
-
+        if (this.state.play) {
             dots.push(head);
             dots.shift();
             this.setState({
                 snakeDots: dots
             })
+            this.checkIfEat()
         }
     }
 
@@ -120,18 +141,6 @@ class Game extends React.Component {
         })
     }
 
-    checkIfEat() {
-        let head = this.state.snakeDots[this.state.snakeDots.length - 1];
-        let food = this.state.food;
-        if (head[0] == food[0] && head[1] == food[1]) {
-            this.setState({
-                food: getRandomCoords()
-            })
-            this.enlargeSnake();
-            this.increaseSpeed();
-            this.countFood();
-        }
-    }
 
     checkIfWon() {
         if (this.state.foodCount >= this.state.maxFood) {

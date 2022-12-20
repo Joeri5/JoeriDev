@@ -14,7 +14,7 @@ const getRandomCoords = () => {
 }
 
 const initialState = {
-    food: getRandomCoords(),
+    food: [30, 0],
     speed: 100,
     pause: true,
     play: false,
@@ -28,6 +28,7 @@ const initialState = {
         [0, 0], [2, 0]
     ]
 }
+
 
 class Game extends React.Component {
     state = initialState
@@ -187,6 +188,7 @@ class Game extends React.Component {
     }
 
     render() {
+        console.log(this.state.food)
         const foodLeft = this.state.maxFood - this.state.foodCount;
         const foodImages = [];
         for (let i = 0; i < 12; i++) {

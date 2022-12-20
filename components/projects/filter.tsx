@@ -64,13 +64,16 @@ const Filter = () => {
         setFilter(newFilter);
     };
 
+    if (activeFilter.length === 0) {
+        filter.map(item => item.active = false)
+    }
 
     // dispatch({type: 'filter/setFilter', payload: filter.map(item => item.active === true ? item.name : null)})
 
     return (
         <div>
             <div
-                className="w-full lg:w-[15.425rem] h-[30px] px-5 lg:py-5 bg-mirage lg:bg-midnight flex lg:border-b-2 lg:border-b-mirage items-center space-x-5"
+                className="w-full lg:w-[20.425rem] h-[30px] px-5 lg:py-5 bg-mirage lg:bg-midnight flex lg:border-b-2 lg:border-b-mirage items-center space-x-5"
                 onClick={() => setOpenFilter(!openFilter)}
             >
                 <img src="/arrow.svg" alt="arrow svg"
@@ -80,7 +83,7 @@ const Filter = () => {
                 </p>
             </div>
             {openFilter && (
-                <div className="w-full flex flex-col space-y-4 py-5 px-7">
+                <div className="w-full flex flex-col space-y-4 py-5 px-7 lg:px-0">
                     {filter.map((item, index) => (
                         <div
                             key={index}
@@ -88,10 +91,12 @@ const Filter = () => {
                             onClick={() => handleFilter(item.name)}
                         >
                             <figure
-                                className={`w-5 h-5 border-lynch border-2 rounded-sm flex items-center justify-center ${item.active ? "bg-lynch" : ""}`}>
-                                {item.active && (
-                                    <img src="/checkmark.svg" alt="checmark"/>
-                                )}
+                                className={`w-5 h-5 border-lynch border-2 rounded-sm flex items-center justify-center ${activeFilter
+                                    .map(filter => (filter.includes(item.name) ? "bg-lynch" : ""))
+                                    .join(" ")}`}
+                            >
+                                {activeFilter.map(filter => (filter.includes(item.name) ?
+                                    <img key={filter.toString()} src="/checkmark.svg" alt="checmark"/> : null))}
                             </figure>
                             <div className="flex space-x-3 items-center">
                                 <img src={item.icon} alt={item.name + "icon"} className="w-6 h-6"/>

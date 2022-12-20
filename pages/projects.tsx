@@ -3,13 +3,27 @@ import Head from "next/head";
 import Layout from "../components/layout/layout";
 import Filter from "../components/projects/filter";
 import {useAppDispatch, useAppSelector} from "../redux/store";
-import {selectFilter} from "../redux/slices/filterSlice";
+import {selectFilter, setFilter} from "../redux/slices/filterSlice";
+import Project from "../components/projects/project";
+import {projectData} from "../data/project.data";
+import {selectMenu} from "../redux/slices/menuSlice";
 
 const Projects = () => {
-    const activeFilter = useAppSelector(selectFilter)
+    let activeFilter = useAppSelector(selectFilter)
     const dispatch = useAppDispatch()
+    const menu = useAppSelector(selectMenu)
 
     console.log(activeFilter)
+
+    const filteredProjectData = projectData.filter(project => {
+        if (activeFilter.length === 0) return [...projectData]
+        return activeFilter.some(filter => project.projectTag.includes(filter));
+    });
+
+    const clearFilter = () => {
+        dispatch(setFilter([]))
+    }
+
 
     return (
         <>
@@ -20,21 +34,65 @@ const Projects = () => {
                 <link rel="icon" href="/favicon.ico"/>
             </Head>
             <Layout>
-                <main className="h-full min-h-screen lg:h-screen bg-midnight">
-                    <div className="pt-20 pb-6 lg:hidden">
-                        <p className="text-white px-5 pb-6">_projects</p>
-                        <div>
+                <main className="h-full min-h-screen lg:w-screen overflow-x-hidden lg:h-screen bg-midnight">
+                    <div className="pt-20 lg:pt-14 pb-6 lg:flex">
+                        <p className="text-white px-5 pb-6 lg:hidden">_projects</p>
+                        <div className="lg:border-r-2 border-mirage lg:h-[calc(100vh-7rem)]">
                             <Filter/>
                         </div>
-                        <div className="py-5 px-5">
-                            <p className={`${activeFilter.length === 0 ? "hidden" : ""}`}>&#47;&#47; projects &#47;{activeFilter.map((item, index) => {
+                        <div className="py-5 px-5 text-white lg:hidden">
+                            <p className={`${activeFilter.length === 0 ? "hidden " : ""}`}>&#47;&#47; projects {activeFilter.map((item, index) => {
                                 return (
-                                    <span key={index}> {item}</span>
+                                    <span key={index} className="text-lynch"> &#47; {item}</span>
                                 )
                             })}
                             </p>
                             {activeFilter.length === 0 &&
-                                <p className={`${activeFilter.length === 0 ? "" : "hidden"}`}>&#47;&#47; projects &#47; All</p>}
+                                <p className={`text-white ${activeFilter.length === 0 ? "" : "hidden"}`}>&#47;&#47; projects <span
+                                    className="text-lynch">&#47; All</span></p>}
+                        </div>
+                        <div className="lg:flex lg:flex-col">
+                            <div
+                                onClick={() => clearFilter()}
+                                className="hidden lg:flex h-[2.6375rem] border-b-2 border-mirage px-5 w-[calc(100vw-20.425rem)]">
+                                <div className="flex gap-14 items-center border-r-2 pr-5 border-mirage">
+                                    <p className={`${activeFilter.length === 0 ? "hidden " : ""}`}>{activeFilter.map((item, index) => {
+                                        return (
+                                            <span key={index} className="text-lynch"> {item}</span>
+                                        )
+                                    })}
+                                    </p>
+                                    {activeFilter.length === 0 &&
+                                        <p className={`text-white ${activeFilter.length === 0 ? "" : "hidden"}`}><span
+                                            className="text-lynch">All</span></p>}
+                                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+                                         strokeWidth={1.5} stroke="currentColor" className="w-5 h-5 text-lynch">
+                                        <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12"/>
+                                    </svg>
+                                </div>
+                            </div>
+                            <div
+                                className="grid md:grid-cols-2 2xl:grid-cols-3 lg:h-[calc(100vh-9.6375rem)] lg:py-20 lg:px-20 lg:overflow-y-scroll lg:whitespace-normal">
+                                {filteredProjectData.map((item, index) => (
+                                    <Project
+                                        key={index}
+                                        title={item.title}
+                                        tag={item.tag}
+                                        icon={item.icon}
+                                        color={item.color}
+                                        image={item.image}
+                                        description={item.description}
+                                        link={item.link}
+                                    />
+                                ))}
+                            </div>
+                            {filteredProjectData.length === 0 && (
+                                <div
+                                    className="lg:absolute flex flex-col items-center justify-center lg:h-[calc(100vh-9.6375rem)] lg:w-[calc(100vw-20.425rem)]">
+                                    <img src="/not-found.svg" alt="not found" className="w-72 lg:w-96"/>
+                                    <p className="text-lynch text-xl lg:text-2xl mt-5 lg:mt-10">No projects found</p>
+                                </div>
+                            )}
                         </div>
                     </div>
                 </main>

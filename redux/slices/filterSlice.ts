@@ -15,6 +15,9 @@ export const filterSlice = createSlice({
         reducers: {
             setFilter: (state, action) => {
                 state.value = action.payload;
+            },
+            clearFilter: (state) => {
+                state.value = [];
             }
         }
     }

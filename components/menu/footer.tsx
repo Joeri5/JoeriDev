@@ -3,7 +3,7 @@ import React from 'react';
 const Footer = () => {
     return (
         <footer
-            className="h-14 sm:px-5 fixed bottom-0 border-t-2 border-mirage w-screen flex justify-between items-center">
+            className="h-14 sm:px-5 absolute bottom-0 border-t-2 border-mirage w-screen flex justify-between items-center">
             <div className="h-full flex">
                 <div className="pl-3 sm:pl-0 h-full border-r-2 border-mirage pr-5 flex items-center">
                     <p className="text-lynch">find me on:</p>

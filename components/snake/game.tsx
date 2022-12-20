@@ -92,7 +92,8 @@ class Game extends React.Component {
                 head = [head[0], head[1] - 2];
                 break;
         }
-        if (this.state.play) {
+        if (!this.state.pause && this.state.play) {
+
             dots.push(head);
             dots.shift();
             this.setState({
@@ -240,7 +241,7 @@ class Game extends React.Component {
                         <InfoScore score={this.state.snakeDots.length}/>
                     </div>
                 </div>
-                <div className="absolute right-0 mr-14 top-14 space-y-7">
+                <div className="absolute right-0 mr-14 top-14 space-y-7 h-[calc(37.5rem-6.5rem)]">
                     <img src="/controls.svg" alt="" className="w-[12.5rem]"/>
                     <div className="px-5 flex flex-col gap-3">
                         <p className="text-white">&#47;&#47;&nbsp;&nbsp;&nbsp;food left</p>
@@ -248,6 +249,12 @@ class Game extends React.Component {
                             {foodImages.map(foodImage => foodImage)}
                         </div>
                     </div>
+                    {this.state.play && (
+                        <button onClick={() => this.setState({pause: this.state.pause ? false : true})}
+                                className="right-0 absolute bottom-0 border-2 px-5 py-2 text-white rounded-lg">
+                            {this.state.pause ? "Return" : "Pause"}
+                        </button>
+                    )}
                 </div>
                 <div>
                     <img src="/bolt.svg" alt="" className="absolute top-5 left-5"/>

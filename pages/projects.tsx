@@ -88,7 +88,7 @@ const Projects = () => {
                             </div>
                             {filteredProjectData.length === 0 && (
                                 <div
-                                    className="lg:absolute flex flex-col items-center justify-center lg:h-[calc(100vh-9.6375rem)] lg:w-[calc(100vw-20.425rem)]">
+                                    className="lg:absolute flex flex-col items-center justify-center translate-y-[3.6375rem] lg:h-[calc(100vh-9.6375rem)] lg:w-[calc(100vw-20.425rem)]">
                                     <img src="/not-found.svg" alt="not found" className="w-72 lg:w-96"/>
                                     <p className="text-lynch text-xl lg:text-2xl mt-5 lg:mt-10">No projects found</p>
                                 </div>

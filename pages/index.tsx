@@ -3,6 +3,7 @@ import Image from 'next/image'
 import {Inter} from '@next/font/google'
 import styles from '../styles/Home.module.css'
 import Layout from "../components/layout/layout";
+import Game from "../components/snake/game";
 
 const inter = Inter({subsets: ['latin']})
 
@@ -46,8 +47,9 @@ export default function Home() {
                             </p>
                         </div>
                     </div>
-                    <div className="hidden lg:flex">
-                        <img src="/game.svg" alt=""/>
+                    <div className="hidden lg:flex lg:items-center">
+                        {/*<img src="/game.svg" alt=""/>*/}
+                        <Game/>
                     </div>
                 </main>
             </Layout>

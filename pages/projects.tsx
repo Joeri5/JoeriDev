@@ -72,7 +72,7 @@ const Projects = () => {
                                 </div>
                             </div>
                             <div
-                                className="grid md:grid-cols-2 2xl:grid-cols-3 lg:h-[calc(100vh-9.6375rem)] lg:py-20 lg:px-20 lg:overflow-y-scroll lg:whitespace-normal">
+                                className={`grid md:grid-cols-2 2xl:grid-cols-3 lg:h-[calc(100vh-9.6375rem)] lg:py-20 lg:px-20 lg:overflow-y-scroll lg:whitespace-normal ${menu ? "hidden lg:grid" : ""}`}>
                                 {filteredProjectData.map((item, index) => (
                                     <Project
                                         key={index}

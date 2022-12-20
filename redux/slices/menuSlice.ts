@@ -15,12 +15,15 @@ export const menuSlice = createSlice({
         reducers: {
             toggleMenu: (state) => {
                 state.value = !state.value;
+            },
+            clearMenu: (state) => {
+                state.value = false;
             }
         }
     }
 );
 
-export const {toggleMenu} = menuSlice.actions;
+export const {toggleMenu, clearMenu} = menuSlice.actions;
 
 export const selectMenu = (state: Rootstate) => state.menu.value;
 

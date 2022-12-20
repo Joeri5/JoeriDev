@@ -1,6 +1,7 @@
 import React, {useState} from 'react';
 import {useAppDispatch, useAppSelector} from "../../redux/store";
 import {selectFilter} from "../../redux/slices/filterSlice";
+import {selectMenu} from "../../redux/slices/menuSlice";
 
 const Filter = () => {
     const [openFilter, setOpenFilter] = useState(false)
@@ -48,6 +49,7 @@ const Filter = () => {
     ])
 
     const activeFilter = useAppSelector(selectFilter)
+    const menu = useAppSelector(selectMenu)
     const dispatch = useAppDispatch()
 
     const handleFilter = (name: string) => {
@@ -73,7 +75,7 @@ const Filter = () => {
     return (
         <div>
             <div
-                className="w-full lg:w-[20.425rem] h-[30px] px-5 lg:py-5 bg-mirage lg:bg-midnight flex lg:border-b-2 lg:border-b-mirage items-center space-x-5"
+                className={`w-full lg:w-[20.425rem] h-[30px] px-5 lg:py-5 bg-mirage lg:bg-midnight flex lg:border-b-2 lg:border-b-mirage items-center space-x-5 ${menu ? "hidden lg:flex" : ""}`}
                 onClick={() => setOpenFilter(!openFilter)}
             >
                 <img src="/arrow.svg" alt="arrow svg"

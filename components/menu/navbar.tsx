@@ -1,18 +1,27 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import {navbarData} from "../../data/navbar.data";
 import {useRouter} from "next/router";
 import Footer from "./footer";
 import {useAppDispatch, useAppSelector} from "../../redux/store";
-import {menuSlice, selectMenu, toggleMenu} from "../../redux/slices/menuSlice";
+import {clearMenu, menuSlice, selectMenu, toggleMenu} from "../../redux/slices/menuSlice";
 
 const Navbar = () => {
-    const [isOpen, setIsOpen] = useState(false);
     const menu = useAppSelector(selectMenu);
     const dispatch = useAppDispatch();
     const router = useRouter();
 
+
+    useEffect(() => {
+        if (menu) {
+            document.body.classList.add('overflow-hidden');
+        } else {
+            document.body.classList.remove('overflow-hidden');
+        }
+    })
+
     return (
-        <nav className="absolute h-14 w-screen flex justify-between items-center border-mirage border-b-2">
+        <nav
+            className={`h-14 w-screen flex justify-between items-center border-mirage border-b-2 ${menu ? "fixed" : "absolute"}`}>
             <div className="lg:items-center lg:h-full flex">
                 <div className="pl-5 lg:pr-48 lg:border-r-2 lg:items-center lg:h-full lg:flex border-mirage">
                     <h3 className="text-lynch">joeri-schenk</h3>

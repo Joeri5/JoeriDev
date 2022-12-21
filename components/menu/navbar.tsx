@@ -32,7 +32,7 @@ const Navbar = () => {
                         {navbarData.map((item, index) => (
                             <li key={index}
                                 className={`px-8 border-r-2 border-mirage h-full flex items-center ${router.pathname === item.href ? "text-white border-b-4 translate-y-[2px] border-b-atomic-tangerine" : "text-lynch"}`}>
-                                <Link href={item.href} onClick={() => dispatch(toggleMenu())}>
+                                <Link href={item.href}>
                                     {item.title}
                                 </Link>
                             </li>
@@ -66,13 +66,14 @@ const Navbar = () => {
                         {navbarData.map((item, index) => (
                             <li key={index} className="w-full border-b-2 border-mirage py-4">
                                 <Link href={item.href}
+                                      onClick={() => dispatch(toggleMenu())}
                                       className={`px-5 text-white`}>
                                     {item.title}
                                 </Link>
                             </li>
                         ))}
                         <li className="w-full border-b-2 border-mirage py-4">
-                            <Link href="/contact" className="px-5 text-white">
+                            <Link onClick={() => dispatch(toggleMenu())} href="/contact" className="px-5 text-white">
                                 _contact-me
                             </Link>
                         </li>

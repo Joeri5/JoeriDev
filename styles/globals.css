@@ -70,6 +70,15 @@
     scroll-behavior: smooth;
 }
 
+.game-wrapper {
+    background: linear-gradient(150.26deg, rgba(23, 85, 83, 0.7) 1.7%, rgba(67, 217, 173, 0.091) 81.82%);
+    border: 1px solid #0C1616;
+    box-shadow: inset 0px 2px 0px rgba(255, 255, 255, 0.3);
+    backdrop-filter: blur(32px);
+    /* Note: backdrop-filter has minimal browser support */
+
+}
+
 .game-area {
     position: relative;
     /*margin: 20px auto;*/

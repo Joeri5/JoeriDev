@@ -27,7 +27,7 @@ const Folder = () => {
                                                          * voluptate velit esse cillum dolore eu fugiat 
                                                          * nulla pariatur. Excepteur sint occaecat 
                                                          * officia deserunt mollit anim id est laborum.
-                                                     */`,
+                                                     **/`,
                                     contentMobile: `/**
                                                          About me
                                                          I have 5 years of еxperience in web

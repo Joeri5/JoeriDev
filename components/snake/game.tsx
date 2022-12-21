@@ -14,7 +14,7 @@ const getRandomCoords = () => {
 }
 
 const initialState = {
-    food: [30, 0],
+    food: [45, 45],
     speed: 100,
     pause: true,
     play: false,
@@ -23,9 +23,9 @@ const initialState = {
     gameOver: "",
     plays: 0,
     gameWon: "",
-    direction: 'RIGHT',
+    direction: 'DOWN',
     snakeDots: [
-        [0, 0], [2, 0]
+        [45, 2], [45, 1]
     ]
 }
 
@@ -123,7 +123,7 @@ class Game extends React.Component {
 
     checkIfEat() {
         let head = this.state.snakeDots[this.state.snakeDots.length - 1];
-        const THRESHOLD = 10;
+        const THRESHOLD = 4;
 
 // Calculate the distance between the head of the snake and the food
         let distance = Math.sqrt(Math.pow(head[0] - this.state.food[0], 2) + Math.pow(head[1] - this.state.food[1], 2));
@@ -200,7 +200,8 @@ class Game extends React.Component {
             foodImages.push(<img src="/food.svg" alt="" className="w-7 inline-block" key={i} style={style}/>);
         }
         return (
-            <div className="w-[37.5rem] h-[37.5rem] bg-gradient-to-br from-[#175553] to-[#43D9AD]/20 relative">
+            <div
+                className="w-[37.5rem] h-[37.5rem] rounded-2xl game-wrapper bg-gradient-to-br from-[#175553] to-[#43D9AD]/20 relative">
                 <div className="flex justify-center">
                     {this.state.plays < 1 && (
                         <button

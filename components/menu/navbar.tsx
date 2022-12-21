@@ -4,6 +4,7 @@ import {useRouter} from "next/router";
 import Footer from "./footer";
 import {useAppDispatch, useAppSelector} from "../../redux/store";
 import {clearMenu, menuSlice, selectMenu, toggleMenu} from "../../redux/slices/menuSlice";
+import Link from "next/link";
 
 const Navbar = () => {
     const menu = useAppSelector(selectMenu);
@@ -31,18 +32,18 @@ const Navbar = () => {
                         {navbarData.map((item, index) => (
                             <li key={index}
                                 className={`px-8 border-r-2 border-mirage h-full flex items-center ${router.pathname === item.href ? "text-white border-b-4 translate-y-[2px] border-b-atomic-tangerine" : "text-lynch"}`}>
-                                <a href={item.href} onClick={() => dispatch(toggleMenu())}>
+                                <Link href={item.href} onClick={() => dispatch(toggleMenu())}>
                                     {item.title}
-                                </a>
+                                </Link>
                             </li>
                         ))}
                     </ul>
                 </div>
             </div>
             <div className="hidden lg:flex px-5 border-l-2 border-mirage h-full items-center">
-                <a href="/contact" className="text-lynch">
+                <Link href="/contact" className="text-lynch">
                     _contact-me
-                </a>
+                </Link>
             </div>
             <button className="pr-5 lg:hidden" onClick={() => dispatch(toggleMenu())}>
                 {menu ? (
@@ -62,15 +63,15 @@ const Navbar = () => {
                     <ul className="w-full">
                         {navbarData.map((item, index) => (
                             <li key={index} className="w-full border-b-2 border-mirage py-4">
-                                <a href={item.href} className="px-5 text-white">
+                                <Link href={item.href} className="px-5 text-white">
                                     {item.title}
-                                </a>
+                                </Link>
                             </li>
                         ))}
                         <li className="w-full border-b-2 border-mirage py-4">
-                            <a href="/contact" className="px-5 text-white">
+                            <Link href="/contact" className="px-5 text-white">
                                 _contact-me
-                            </a>
+                            </Link>
                         </li>
                     </ul>
                     <Footer/>

@@ -40,8 +40,10 @@ const Navbar = () => {
                     </ul>
                 </div>
             </div>
-            <div className="hidden lg:flex px-5 border-l-2 border-mirage h-full items-center">
-                <Link href="/contact" className="text-lynch">
+            <div
+                className={`hidden lg:flex px-5 border-l-2 border-mirage h-full items-center ${router.pathname === '/contact' ? "text-white border-b-4 translate-y-[2px] border-b-atomic-tangerine" : "text-lynch"}`}>
+                <Link href="/contact"
+                      className={`text-lynch`}>
                     _contact-me
                 </Link>
             </div>
@@ -63,7 +65,8 @@ const Navbar = () => {
                     <ul className="w-full">
                         {navbarData.map((item, index) => (
                             <li key={index} className="w-full border-b-2 border-mirage py-4">
-                                <Link href={item.href} className="px-5 text-white">
+                                <Link href={item.href}
+                                      className={`px-5 text-white`}>
                                     {item.title}
                                 </Link>
                             </li>

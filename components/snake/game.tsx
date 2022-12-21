@@ -21,7 +21,9 @@ const initialState = {
     foodCount: 0,
     maxFood: 12,
     gameOver: "",
+    lastScore: 0,
     plays: 0,
+    mode: "normal",
     gameWon: "",
     direction: 'DOWN',
     snakeDots: [
@@ -43,7 +45,9 @@ class Game extends React.Component {
         this.checkIfOutOfBorders();
         this.checkIfCollapsed();
         this.checkIfEat();
-        this.checkIfWon();
+        if (this.state.mode === "normal") {
+            this.checkIfWon();
+        }
     }
 
     onKeyDown = (e: any) => {
@@ -151,6 +155,7 @@ class Game extends React.Component {
             this.countFood()
             this.enlargeSnake()
         }
+
     }
 
 
@@ -182,7 +187,7 @@ class Game extends React.Component {
     }
 
     onGameOver() {
-        this.setState(Object.assign({}, initialState, {plays: this.state.plays + 1}));
+        this.setState(Object.assign({}, initialState, {lastScore: this.state.snakeDots.length - 2}, {plays: this.state.plays + 1}, {mode: this.state.mode}));
         this.setState({gameOver: `Game Over!`})
 
     }
@@ -227,7 +232,7 @@ class Game extends React.Component {
                             <div>
                                 {(this.state.gameWon || this.state.gameOver) && this.state.plays >= 1 && (
                                     <button
-                                        className="bottom-20 z-50 left-36 absolute text-white"
+                                        className="bottom-20 z-50 left-32 absolute text-white"
                                         onClick={() => this.setState({play: true, pause: false})}
                                     >
                                         {this.state.gameWon ? "play" : "start"}-again
@@ -246,18 +251,50 @@ class Game extends React.Component {
                 </div>
                 <div className="absolute right-0 mr-14 top-14 space-y-7 h-[calc(37.5rem-6.5rem)]">
                     <img src="/controls.svg" alt="" className="w-[12.5rem]"/>
-                    <div className="px-5 flex flex-col gap-3">
-                        <p className="text-white">&#47;&#47;&nbsp;&nbsp;&nbsp;food left</p>
-                        <div className="grid grid-cols-6">
-                            {foodImages.map(foodImage => foodImage)}
+                    <div className={`flex flex-col ${this.state.mode == "normal" ? "gap-3" : "gap-5"}`}>
+                        <p className="text-white flex items-start">&#47;&#47;&nbsp;&nbsp;&nbsp;{this.state.mode == "normal" ? "food left" : "score"}</p>
+                        <div className={`${this.state.mode == "normal" ? "grid grid-cols-6" : ""}`}>
+                            {this.state.mode == "normal" ? (
+                                <>
+                                    {foodImages.map(foodImage => foodImage)}
+                                </>
+                            ) : (
+                                <>
+                                    <p className={`text-[#72D6B0] text-xl text-center`}>
+                                        {this.state.play && (
+                                            <>
+                                                {this.state.snakeDots.length - 2}
+                                            </>
+                                        )}
+                                        {!this.state.play && (
+                                            <>
+                                                {this.state.gameOver && (
+                                                    <>
+                                                        {this.state.lastScore}
+                                                    </>
+                                                )}
+                                            </>
+                                        )}
+                                    </p>
+                                </>
+                            )}
                         </div>
                     </div>
-                    {this.state.play && (
-                        <button onClick={() => this.setState({pause: this.state.pause ? false : true})}
-                                className="right-0 absolute bottom-0 border-2 px-5 py-2 text-white rounded-lg">
-                            {this.state.pause ? "Return" : "Pause"}
-                        </button>
-                    )}
+                    {/*{this.state.play && (*/}
+                    <button
+                        onClick={() => this.setState(this.state.play ? {pause: this.state.pause ? false : true} : {mode: this.state.mode == "normal" ? "infinity" : "normal"})}
+                        className="right-0 absolute bottom-0 border-2 px-5 py-2 text-white rounded-lg">
+                        {this.state.play ? (
+                            <>
+                                {this.state.pause ? "Return" : "Pause"}
+                            </>
+                        ) : (
+                            <>
+                                {this.state.mode == "normal" ? "infinity mode" : "normal mode"}
+                            </>
+                        )}
+                    </button>
+                    {/*)}*/}
                 </div>
                 <div>
                     <img src="/bolt.svg" alt="" className="absolute top-5 left-5"/>

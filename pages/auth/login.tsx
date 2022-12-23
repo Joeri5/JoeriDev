@@ -1,52 +1,19 @@
-import React, {FormEvent, useEffect, useState} from 'react';
-import {selectAuth, setToken} from "../redux/slices/authSlice";
-import {useAppDispatch, useAppSelector} from "../redux/store";
-import {login, logout, register} from "../redux/thunks/authThunks";
+import React, {FormEvent, useState} from 'react';
 import Head from "next/head";
+import {signIn, useSession} from "next-auth/react";
+import {useRouter} from "next/router";
 
 const LoginPage = () => {
-    const dispatch = useAppDispatch();
-    const {status, token, user} = useAppSelector(selectAuth);
+    const router = useRouter();
+    const { data: session } = useSession();
+
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
-
-    useEffect(() => {
-        token && localStorage.setItem('token', token);
-
-    }, [token]);
-
-
-    useEffect(() => {
-        switch (status) {
-            case 200:
-                alert('Logged in successfully');
-                break;
-            case 401:
-                alert('Invalid credentials');
-                break;
-            case 201:
-                alert('Registered successfully');
-                break;
-            case 400:
-                alert('Invalid credentials');
-                break;
-            default:
-                break;
-
-        }
-    }, [status]);
 
     const handleSubmit = async (e: FormEvent) => {
         e.preventDefault();
 
-        dispatch(login({email, password}));
-    };
-
-
-    const handleLogout = async (e: FormEvent) => {
-        e.preventDefault();
-
-        dispatch(logout({accessToken: localStorage.getItem('token')}));
+        await signIn('credentials', { email, password });
     };
 
     return (
@@ -58,15 +25,18 @@ const LoginPage = () => {
                 <link rel="icon" href="/icon.svg"/>
             </Head>
             <div>
-                <form onSubmit={handleSubmit} className="mt-20">
+                <button onClick={() => signIn()}>test</button>
+                <form onSubmit={(e) => handleSubmit(e)} className="mt-20">
                     <div
                         className="flex flex-col items-center justify-center min-h-screen py-2 -mt-56 px-14 text-center">
                         <div
                             className="flex flex-col items-center justify-center w-full max-w-md px-4 py-6 space-y-8 bg-white border-2 border-gray-300 rounded-lg shadow-xl">
                             <div className="flex flex-col items-center justify-center w-full space-y-2">
-                                <h1 className="text-3xl font-bold text-gray-900">Register</h1>
-                                <p className="text-sm text-gray-500">Already have an account? <button
-                                    className="font-medium text-indigo-600 hover:text-indigo-500">Login</button>
+                                <h1 className="text-3xl font-bold text-gray-900">Login</h1>
+                                <p className="text-sm text-gray-500">No account yet? <button
+                                    type="button"
+                                    onClick={() => router.push('/auth/register')}
+                                    className="font-medium text-indigo-600 hover:text-indigo-500">Register</button>
                                 </p>
                             </div>
                             <div className="w-full space-y-6">
@@ -84,16 +54,20 @@ const LoginPage = () => {
                                            id="password"
                                            className="w-full px-4 py-2 text-sm text-gray-900 border border-gray-300 rounded-md focus:outline-none focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500"/>
                                 </div>
+                                <div>
+                                    <button type="submit"
+                                            className="w-full px-4 py-2 text-sm font-medium text-white bg-indigo-600 border border-transparent rounded-md hover:bg-indigo-700 focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-indigo-500">Login
+                                    </button>
+                                </div>
                             </div>
                         </div>
                     </div>
                 </form>
-                {user && (
+                {session?.user && (
                     <div>
-                        <h1>{user.email}</h1>
+                        <h1>{session.user.firstName} {session.user.lastName}</h1>
                     </div>
                 )}
-                <button onClick={handleLogout}>logout</button>
             </div>
         </>
 

@@ -1,11 +1,11 @@
 import React, {FormEvent, useState} from 'react';
 import Head from "next/head";
-import {signIn, useSession} from "next-auth/react";
+import {signIn, signOut, useSession} from "next-auth/react";
 import {useRouter} from "next/router";
 
 const LoginPage = () => {
     const router = useRouter();
-    const { data: session } = useSession();
+    const { data: session, status } = useSession();
 
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
@@ -63,9 +63,11 @@ const LoginPage = () => {
                         </div>
                     </div>
                 </form>
+                {status}
                 {session?.user && (
                     <div>
-                        <h1>{session.user.firstName} {session.user.lastName}</h1>
+                        <h1>{session.user.name}</h1>
+                        <button onClick={() => signOut()}>Sign Out</button>
                     </div>
                 )}
             </div>

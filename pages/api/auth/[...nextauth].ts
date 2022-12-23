@@ -31,16 +31,21 @@ export const authOptions: NextAuthOptions = {
         })
     ],
     callbacks: {
-        async signIn({ user, profile }) {
+        async jwt({ token, user }) {
             if (user) {
-
+                token.firstName = user.firstName;
+                token.lastName = user.lastName;
+                token.name = user.firstName + " " + user.lastName;
             }
 
-            return user != null;
+            return token;
         },
-        async jwt({ token, account, profile }) {
-            console.log({token, account, profile})
-            return token
+        async session({ session, token }) {
+            session.user.id = token.sub;
+            session.user.email = token.email;
+            session.user.firstName = token.firstName;
+            session.user.lastName = token.lastName;
+            return session
         }
     }
 }

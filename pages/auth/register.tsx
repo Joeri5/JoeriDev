@@ -1,48 +1,37 @@
-import React, {FormEvent, useEffect, useState} from 'react';
+import React, {FormEvent, useState} from 'react';
 import Head from "next/head";
-import axios from "axios";
-import {useAppDispatch, useAppSelector} from "../redux/store";
-import {register} from "../redux/thunks/authThunks";
-import {selectAuth} from "../redux/slices/authSlice";
+import axios, {AxiosError} from "axios";
+import {useRouter} from "next/router";
 
-const Auth = () => {
-    const dispatch = useAppDispatch();
-    const {status, token} = useAppSelector(selectAuth);
+const RegisterPage = () => {
+    const router = useRouter();
 
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [firstName, setFirstName] = useState('');
     const [lastName, setLastName] = useState('');
 
-    useEffect(() => {
-        console.log("token changed", token)
-    }, [token]);
-
-
-    useEffect(() => {
-        switch (status) {
-            case 200:
-                alert('Logged in successfully');
-                break;
-            case 401:
-                alert('Invalid credentials');
-                break;
-            case 201:
-                alert('Registered successfully');
-                break;
-            case 400:
-                alert('Invalid credentials');
-                break;
-            default:
-                break;
-
-        }
-    }, [status]);
-
     const handleSubmit = async (e: FormEvent) => {
         e.preventDefault();
 
-        dispatch(register({email, password, firstName, lastName}));
+        const body = {email, password, firstName, lastName};
+        try {
+            const response = await axios.post('/api/spring/v1/auth/register', body);
+            switch(response.status) {
+                case 201:
+                    alert('account created!');
+                    break;
+                default:
+                    alert('Unknown response');
+                    break;
+            }
+        } catch (error) {
+            if (error instanceof AxiosError) {
+                alert('error code: ' + error.status);
+            } else {
+                alert('unknown error');
+            }
+        }
     };
 
     return (
@@ -55,12 +44,6 @@ const Auth = () => {
             </Head>
             <main>
                 <form onSubmit={handleSubmit} className="mt-20">
-                    {/*create a nice looking form body with tailwind for email, password, first name and last name and a submit button*/}
-                    {/*<input type="email" value={email} onChange={(e) => setEmail(e.target.value)} placeholder="email"/>*/}
-                    {/*<input type="password" value={password} onChange={(e) => setPassword(e.target.value)}/>*/}
-                    {/*<input type="text" value={firstName} onChange={(e) => setFirstName(e.target.value)}/>*/}
-                    {/*<input type="text" value={lastName} onChange={(e) => setLastName(e.target.value)}/>*/}
-                    {/*<button type="submit">Register</button>*/}
 
                     <div
                         className="flex flex-col items-center justify-center min-h-screen py-2 -mt-56 px-14 text-center">
@@ -69,6 +52,8 @@ const Auth = () => {
                             <div className="flex flex-col items-center justify-center w-full space-y-2">
                                 <h1 className="text-3xl font-bold text-gray-900">Register</h1>
                                 <p className="text-sm text-gray-500">Already have an account? <button
+                                    type="button"
+                                    onClick={() => router.push('/auth/login')}
                                     className="font-medium text-indigo-600 hover:text-indigo-500">Login</button>
                                 </p>
                             </div>
@@ -117,4 +102,4 @@ const Auth = () => {
     );
 };
 
-export default Auth;
+export default RegisterPage;

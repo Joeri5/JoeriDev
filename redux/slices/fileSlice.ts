@@ -1,5 +1,5 @@
 import {createSlice} from "@reduxjs/toolkit";
-import {Rootstate} from "../store";
+import {RootState} from "../store";
 
 interface FileState {
     value: boolean;
@@ -22,6 +22,6 @@ export const fileSlice = createSlice({
 
 export const {toggleFile} = fileSlice.actions;
 
-export const selectFile = (state: Rootstate) => state.file.value;
+export const selectFile = (state: RootState) => state.file.value;
 
 export default fileSlice.reducer;

@@ -1,5 +1,5 @@
 import {createSlice} from "@reduxjs/toolkit";
-import {Rootstate} from "../store";
+import {RootState} from "../store";
 
 interface MenuState {
     value: boolean;
@@ -25,6 +25,6 @@ export const menuSlice = createSlice({
 
 export const {toggleMenu, clearMenu} = menuSlice.actions;
 
-export const selectMenu = (state: Rootstate) => state.menu.value;
+export const selectMenu = (state: RootState) => state.menu.value;
 
 export default menuSlice.reducer;

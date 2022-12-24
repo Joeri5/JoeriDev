@@ -9,6 +9,7 @@ export const authOptions: NextAuthOptions = {
             credentials: {},
             async authorize(credentials) {
                 const response = await spring.post('/v1/auth/login', credentials);
+                console.log(response);
                 if (response.status === 200) {
                     const token = response.data.accessToken;
                     const identify = await spring.get('/v1/users/identify', {

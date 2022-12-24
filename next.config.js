@@ -6,7 +6,7 @@ const nextConfig = {
     return [
       {
         source: "/api/spring/:path*",
-        destination: "http://192.168.68.126:8080/api/:path*"
+        destination: "https://joeri-dev.herokuapp.com/api/:path*"
       }
     ]
   },

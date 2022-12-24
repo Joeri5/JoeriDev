@@ -8,25 +8,20 @@ export const authOptions: NextAuthOptions = {
             name: "Credentials",
             credentials: {},
             async authorize(credentials) {
-                try {
-                    const response = await spring.post('/v1/auth/login', credentials);
-                    if (response.status === 200) {
-                        const token = response.data.accessToken;
-                        const identify = await spring.get('/v1/users/identify', {
-                            headers: {
-                                Authorization: `Bearer ${token}`
-                            }
-                        });
-                        if (identify.status === 200) {
-                            return identify.data;
+                const response = await spring.post('/v1/auth/login', credentials);
+                if (response.status === 200) {
+                    const token = response.data.accessToken;
+                    const identify = await spring.get('/v1/users/identify', {
+                        headers: {
+                            Authorization: `Bearer ${token}`
                         }
-                        return null;
+                    });
+                    if (identify.status === 200) {
+                        return identify.data;
                     }
                     return null;
-                } catch (error) {
-                    console.error(error);
-                    return null;
                 }
+                return null;
             }
         })
     ],

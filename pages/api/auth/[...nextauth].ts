@@ -8,13 +8,18 @@ export const authOptions: NextAuthOptions = {
             name: "Credentials",
             credentials: {},
             async authorize(credentials) {
-                const response = await spring.post('/v1/auth/login', credentials);
+                const response = await spring.post('/v1/auth/login', credentials, {
+                    headers: {
+                        "Content-Type": "application/json"
+                    }
+                });
                 console.log(response);
                 if (response.status === 200) {
                     const token = response.data.accessToken;
                     const identify = await spring.get('/v1/users/identify', {
                         headers: {
-                            Authorization: `Bearer ${token}`
+                            Authorization: `Bearer ${token}`,
+                            "Content-Type": "application/json"
                         }
                     });
                     if (identify.status === 200) {

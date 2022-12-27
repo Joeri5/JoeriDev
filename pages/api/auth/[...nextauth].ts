@@ -10,10 +10,7 @@ export const authOptions: NextAuthOptions = {
             async authorize(credentials) {
                 const response = await spring.post('/v1/auth/login', credentials, {
                     headers: {
-                        "Content-Type": "application/json",
-                        "Accept-Encoding": "gzip, deflate, br",
-                        "Accept": "application/json, text/plain, */*",
-                        "Connection": "keep-alive",
+                        "Content-Type": "x-www-form-urlencoded",
                     }
                 });
                 console.log(response);
@@ -22,10 +19,6 @@ export const authOptions: NextAuthOptions = {
                     const identify = await spring.get('/v1/users/identify', {
                         headers: {
                             Authorization: `Bearer ${token}`,
-                            "Content-Type": "application/json",
-                            "Accept-Encoding": "gzip, deflate, br",
-                            "Accept": "application/json, text/plain, */*",
-                            "Connection": "keep-alive",
                         }
                     });
                     if (identify.status === 200) {

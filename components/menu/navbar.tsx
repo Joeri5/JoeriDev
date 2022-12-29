@@ -19,7 +19,6 @@ const Navbar = () => {
     useEffect(() => {
         if (menu) {
             document.body.classList.add('overflow-hidden');
-            // use this to hide the usermenu if the menu is open
             dispatch(clearUserMenu());
 
         } else {

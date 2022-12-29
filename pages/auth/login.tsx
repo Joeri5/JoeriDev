@@ -5,7 +5,7 @@ import {useRouter} from "next/router";
 
 const LoginPage = () => {
     const router = useRouter();
-    const { data: session, status } = useSession();
+    const {data: session, status} = useSession();
 
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
@@ -13,8 +13,14 @@ const LoginPage = () => {
     const handleSubmit = async (e: FormEvent) => {
         e.preventDefault();
 
-        await signIn('credentials', { email, password });
+        await signIn('credentials', {email, password});
     };
+
+    if (status === 'authenticated') {
+        router.push('/');
+    }
+
+    console.log(session?.user);
 
     return (
         <>
@@ -67,6 +73,7 @@ const LoginPage = () => {
                 {session?.user && (
                     <div>
                         <h1>{session.user.name}</h1>
+                        <img src={session.user.profilePicture} alt="hello"/>
                         <button onClick={() => signOut()}>Sign Out</button>
                     </div>
                 )}

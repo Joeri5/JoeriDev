@@ -2,22 +2,25 @@ import React, {FormEvent, useState} from 'react';
 import Head from "next/head";
 import axios, {AxiosError} from "axios";
 import {useRouter} from "next/router";
+import {useSession} from "next-auth/react";
 
 const RegisterPage = () => {
     const router = useRouter();
+    const {status} = useSession();
 
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [firstName, setFirstName] = useState('');
     const [lastName, setLastName] = useState('');
+    const [profilePicture, setProfilePicture] = useState('');
 
     const handleSubmit = async (e: FormEvent) => {
         e.preventDefault();
 
-        const body = {email, password, firstName, lastName};
+        const body = {email, password, firstName, lastName, profilePicture};
         try {
             const response = await axios.post('/api/spring/v1/auth/register', body);
-            switch(response.status) {
+            switch (response.status) {
                 case 201:
                     alert('account created!');
                     break;
@@ -33,6 +36,46 @@ const RegisterPage = () => {
             }
         }
     };
+
+    const fileChangeHandler: React.ChangeEventHandler<
+        HTMLInputElement>
+        = async (event) => {
+        const file = event.target.files!! [0];
+        if (file.type !== 'image/png' &&
+            file.type !== 'image/jpeg' &&
+            file.type !== 'image/jpg' &&
+            file.type !== 'image/webp' &&
+            file.type !== 'image/svg+xml') {
+            alert('invalid file type');
+            event.target.value = '';
+            return;
+        }
+        if (file.size > 1000000) {
+            alert('file too large');
+            event.target.value = '';
+            return;
+        }
+        if (!file) return;
+        const promise = new Promise<string | ArrayBuffer | null>(
+            (resolve, reject) => {
+                const reader = new FileReader();
+                reader.readAsDataURL(file);
+                reader.onload = () => {
+                    resolve(reader.result);
+                };
+                reader.onerror = reject;
+            }
+        );
+        const base64 = await promise;
+        if (typeof base64 === "string") {
+            setProfilePicture(base64 as string);
+        }
+        ;
+    };
+
+    if (status === 'authenticated') {
+        router.push('/');
+    }
 
     return (
         <>
@@ -86,6 +129,11 @@ const RegisterPage = () => {
                                     <input type="text" value={lastName}
                                            onChange={(e) => setLastName(e.target.value)}
                                            placeholder="last name" id="lastName"
+                                           className="w-full px-4 py-2 text-sm text-gray-900 border border-gray-300 rounded-md focus:outline-none focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500"/>
+                                </div>
+                                <div className="flex flex-col w-full space-y-1">
+                                    <label htmlFor="image" className="text-sm font-medium text-gray-900">Image</label>
+                                    <input type="file" onChange={fileChangeHandler} placeholder="image" id="file"
                                            className="w-full px-4 py-2 text-sm text-gray-900 border border-gray-300 rounded-md focus:outline-none focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500"/>
                                 </div>
                                 <div>

@@ -10,7 +10,7 @@ const initialState: FileState = {
 }
 
 export const fileSlice = createSlice({
-        name: "menu",
+        name: "file",
         initialState,
         reducers: {
             toggleFile: (state) => {

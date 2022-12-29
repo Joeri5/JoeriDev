@@ -2,8 +2,6 @@ import React, {CSSProperties, useEffect, useState} from "react";
 import Food from "./food";
 import Snake from "./snake";
 import InfoScore from "./infoScore";
-import {Simulate} from "react-dom/test-utils";
-import play = Simulate.play;
 
 const getRandomCoords = () => {
     let min = 1;
@@ -127,7 +125,7 @@ class Game extends React.Component {
 
     checkIfEat() {
         let head = this.state.snakeDots[this.state.snakeDots.length - 1];
-        const THRESHOLD = 4;
+        const THRESHOLD = 3;
 
 // Calculate the distance between the head of the snake and the food
         let distance = Math.sqrt(Math.pow(head[0] - this.state.food[0], 2) + Math.pow(head[1] - this.state.food[1], 2));

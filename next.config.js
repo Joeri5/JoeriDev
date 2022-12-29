@@ -6,7 +6,7 @@ const nextConfig = {
     return [
       {
         source: "/api/spring/:path*",
-        destination: "https://joeri-dev.herokuapp.com/api/:path*"
+        destination: process.env.SPRING_URL
       }
     ]
   },

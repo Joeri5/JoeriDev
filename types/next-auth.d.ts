@@ -11,6 +11,7 @@ declare module "next-auth" {
             firstName: string;
             lastName: string;
             name: string;
+            profilePicture: string;
         }
     }
 
@@ -23,12 +24,14 @@ declare module "next-auth" {
         email: string;
         firstName: string;
         lastName: string;
+        profilePicture: string;
     }
 
     interface Profile {
         email: string;
         firstName: string;
         lastName: string;
+        profilePicture: string;
     }
 
 }
@@ -39,5 +42,6 @@ declare module "next-auth/jwt" {
         email: string;
         firstName: string;
         lastName: string;
+        profilePicture: string;
     }
 }

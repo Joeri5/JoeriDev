@@ -1,8 +1,9 @@
-import React from 'react';
+import React, {FormEvent} from 'react';
 import Head from "next/head";
 import Layout from "../components/layout/layout";
 import Options from "../components/contact/options";
 import Form from "../components/contact/form";
+import Output from "../components/contact/output";
 
 const Contact = () => {
     return (
@@ -36,8 +37,14 @@ const Contact = () => {
                                     </svg>
                                 </div>
                             </div>
-                            <div className="lg:p-20 px-10 py-10">
-                                <Form/>
+                            <div className="flex xl:h-[calc(100vh-9.6375rem)]">
+                                <div
+                                    className="xl:p-14 2xl:p-20 px-10 py-10 xl:w-5/12 xl:border-r-2 xl:border-mirage w-full">
+                                    <Form/>
+                                </div>
+                                <div className="hidden xl:flex p-10 xl:p-14 2xl:p-20 xl:w-7/12 whitespace-normal">
+                                    <Output/>
+                                </div>
                             </div>
                         </div>
                     </div>

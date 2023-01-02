@@ -43,7 +43,7 @@ const About = () => {
                             {/*comment*/}
                         </div>
                         <div
-                            className={`translate-x-[35vw] ${file ? "" : "border-l-2 border-l-mirage"} hidden lg:flex lg:flex-col w-[calc(100vw-15.425rem-5.25rem-35vw)]`}>
+                            className={`translate-x-[34.75vw] border-l-2 border-l-mirage hidden lg:flex lg:flex-col w-[calc(100vw-15.425rem-5rem-35vw)]`}>
                             <div
                                 className="h-[2.6375rem] w-full border-b-2 border-b-mirage w-full">
                             </div>

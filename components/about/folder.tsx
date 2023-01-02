@@ -7,11 +7,11 @@ import {useDispatch} from "react-redux";
 const Folder = () => {
     const [aboutFolders, setAboutFolders] = useState([
         {
-            title: "personal-info", open: false, subFolders: [
+            title: "personal-info", open: true, subFolders: [
                 {
-                    title: "bio", folderColor: "pink", open: false, subFiles: [
+                    title: "bio", folderColor: "pink", open: true, subFiles: [
                         {
-                            title: "bio.md", open: false, content: [
+                            title: "bio.md", open: true, content: [
                                 {
                                     content: `/**
                                                          * About me
@@ -225,7 +225,7 @@ const Folder = () => {
                 ))}
             </div>
             {/*display content right here*/}
-            <div className="lg:w-[calc(100vw-15.425rem-5rem)] border-r-2 lg:h-[calc(100vh-7rem)] lg:border-r-mirage">
+            <div className="lg:w-[calc(100vw-15.425rem-5rem)] lg:h-[calc(100vh-7rem)] ">
                 {aboutFolders.map((folder, index) => (
                     <>
                         {folder.open && (

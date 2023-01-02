@@ -52,25 +52,25 @@ const Output = () => {
                     <Number number={4}/>
                     <span className="text-[#5565E8] pl-5">name</span>
                     <span className="text-[#607B96]">: </span>
-                    <span className="text-[#FEA55F]">"{name}"<span className="text-[#607B96]">,</span></span>
+                    <span className="text-[#FEA55F]">&#34;{name}&#34;<span className="text-[#607B96]">,</span></span>
                 </li>
                 <li>
                     <Number number={5}/>
                     <span className="text-[#5565E8] pl-5">email</span>
                     <span className="text-[#607B96]">: </span>
-                    <span className="text-[#FEA55F]">"{email}"<span className="text-[#607B96]">,</span></span>
+                    <span className="text-[#FEA55F]">&#34;{email}&#34;<span className="text-[#607B96]">,</span></span>
                 </li>
                 <li>
                     <Number number={6}/>
                     <span className="text-[#5565E8] pl-5">message</span>
                     <span className="text-[#607B96]">: </span>
-                    <span className="text-[#FEA55F]">"{message}"<span className="text-[#607B96]">,</span></span>
+                    <span className="text-[#FEA55F]">&#34;{message}&#34;<span className="text-[#607B96]">,</span></span>
                 </li>
                 <li>
                     <Number number={7}/>
                     <span className="text-[#607B96] pl-5">date</span>
                     <span className="text-[#607B96]">: </span>
-                    <span className="text-[#FEA55F]">"{date}"<span className="text-[#607B96]">,</span></span>
+                    <span className="text-[#FEA55F]">&#34;{date}&#34;<span className="text-[#607B96]">,</span></span>
                 </li>
                 <li>
                     <Number number={8}/>

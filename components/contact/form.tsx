@@ -65,7 +65,7 @@ const Form = () => {
             {response.status === 400 && (
                 <div className="flex flex-col pt-20 items-center space-y-2">
                     <div className="flex space-x-5 items-center">
-                        <h1 className="text-3xl text-white">I'm sorry!</h1>
+                        <h1 className="text-3xl text-white">I&#39;m sorry!</h1>
                         <img src="thumbs-down.png" alt="sign of the horns emoji apple" className="w-8 h-8"/>
                     </div>
                     <p className="text-lynch text-lg text-center max-w-md">

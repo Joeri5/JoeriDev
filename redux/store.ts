@@ -5,6 +5,7 @@ import {fileSlice} from "./slices/fileSlice";
 import {filterSlice} from "./slices/filterSlice";
 import {userMenuSlice} from "./slices/userMenuSlice";
 import {formSlice} from "./slices/formSlice";
+import {projectSlice} from "./slices/projectSlice";
 
 export const store = configureStore({
     reducer: {
@@ -13,6 +14,7 @@ export const store = configureStore({
         filter: filterSlice.reducer,
         userMenu: userMenuSlice.reducer,
         form: formSlice.reducer,
+        project: projectSlice.reducer,
     },
 });
 

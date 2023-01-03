@@ -54,7 +54,7 @@ const Navbar = () => {
                         className={`hidden h-full ${status === "authenticated" ? "lg:flex" : "hidden"}`}>
                     <div
                         className={`group flex xl:px-8 gap-x-2 px-4 lg:border-l-2 border-mirage h-full items-center text-lynch`}>
-                        <img src={session?.user.profilePicture} alt={"Profile picture of" + session?.user.name}
+                        <img src={session?.user.profilePicture} alt={"Settings picture of" + session?.user.name}
                              className="w-7 h-7 object-fill rounded-full"/>
                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5}
                              stroke="currentColor"
@@ -98,7 +98,7 @@ const Navbar = () => {
                     <div className="fixed h-[calc(100vh-3.5rem)] w-screen lg:hidden bg-midnight top-14">
                         <ul className="w-full">
                             <li className={`py-5 px-5 flex items-center space-x-5 border-b-2 border-mirage ${status === "authenticated" ? "" : "hidden"}`}>
-                                <img src={session?.user.profilePicture} alt={"Profile image of" + session?.user.name}
+                                <img src={session?.user.profilePicture} alt={"Settings image of" + session?.user.name}
                                      className="w-10 h-10 rounded-full object-fill object-center"/>
                                 <div className="space-y-1">
                                     <p className="text-sm text-white">{session?.user.name}</p>
@@ -115,8 +115,8 @@ const Navbar = () => {
                                 </li>
                             ))}
                             <li className={`w-full border-b-2 border-mirage py-4 ${status === "authenticated" ? "" : "hidden"}`}>
-                                <button onClick={() => dispatch(toggleMenu()) && signOut()}
-                                        className="px-5 text-white flex gap-5">
+                                <Link href={'/auth/settings'} onClick={() => dispatch(toggleMenu())}
+                                      className="px-5 text-white flex gap-5">
                                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
                                          strokeWidth={1.5}
                                          stroke="currentColor" className="w-5 h-5">
@@ -124,7 +124,7 @@ const Navbar = () => {
                                               d="M6 13.5V3.75m0 9.75a1.5 1.5 0 010 3m0-3a1.5 1.5 0 000 3m0 3.75V16.5m12-3V3.75m0 9.75a1.5 1.5 0 010 3m0-3a1.5 1.5 0 000 3m0 3.75V16.5m-6-9V3.75m0 3.75a1.5 1.5 0 010 3m0-3a1.5 1.5 0 000 3m0 9.75V10.5"/>
                                     </svg>
                                     _settings
-                                </button>
+                                </Link>
                             </li>
                             <li className={`w-full border-b-2 border-mirage py-4 ${status === "authenticated" ? "" : "hidden"}`}>
                                 <button onClick={() => dispatch(toggleMenu()) && signOut()}

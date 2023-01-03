@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect, useState} from 'react';
 import Head from "next/head";
 import Layout from "../components/layout/layout";
 import Filter from "../components/projects/filter";
@@ -7,23 +7,39 @@ import {selectFilter, setFilter} from "../redux/slices/filterSlice";
 import Project from "../components/projects/project";
 import {projectData} from "../data/project.data";
 import {selectMenu} from "../redux/slices/menuSlice";
+import axios from "axios";
 
 const Projects = () => {
     let activeFilter = useAppSelector(selectFilter)
     const dispatch = useAppDispatch()
     const menu = useAppSelector(selectMenu)
+    const [projects, setProjects] = useState([])
+
+    useEffect(() => {
+        async function fetchData() {
+            await axios.get('/api/project/read').then((response) => {
+                setProjects(response.data)
+            }).catch((error) => {
+                console.log(error)
+            })
+        }
+
+        if (document.readyState === 'complete') {
+            fetchData()
+        }
+
+    }, [])
 
     console.log(activeFilter)
 
-    const filteredProjectData = projectData.filter(project => {
-        if (activeFilter.length === 0) return [...projectData]
-        return activeFilter.some(filter => project.projectTag.includes(filter));
+    const filteredProjectData = projects.filter((p: { tag: string }) => {
+        if (activeFilter.length === 0) return [...projectData];
+        return activeFilter.some(filter => p.tag.includes(filter));
     });
 
     const clearFilter = () => {
         dispatch(setFilter([]))
     }
-
 
     return (
         <>
@@ -73,7 +89,7 @@ const Projects = () => {
                             </div>
                             <div
                                 className={`grid md:grid-cols-2 2xl:grid-cols-3 lg:h-[calc(100vh-9.6375rem)] lg:py-20 lg:px-20 lg:overflow-y-scroll lg:whitespace-normal ${menu ? "hidden lg:grid" : ""}`}>
-                                {filteredProjectData.map((item, index) => (
+                                {filteredProjectData.map((item: { title: string; tag: string; icon: string; color: string; image: string; description: string; link: string }, index) => (
                                     <Project
                                         key={index}
                                         title={item.title}
@@ -89,8 +105,8 @@ const Projects = () => {
                             {filteredProjectData.length === 0 && (
                                 <div
                                     className="lg:absolute flex flex-col items-center justify-center translate-y-[3.6375rem] lg:h-[calc(100vh-9.6375rem)] lg:w-[calc(100vw-20.425rem)]">
-                                    <img src="/not-found.svg" alt="not found" className="w-72 lg:w-96"/>
-                                    <p className="text-lynch text-xl lg:text-2xl mt-5 lg:mt-10">No projects found</p>
+                                    <img src="/mascot.png" alt="not found" className="w-96"/>
+                                    <p className="text-lynch text-xl lg:mt-10">No projects found</p>
                                 </div>
                             )}
                         </div>

@@ -12,6 +12,8 @@ declare module "next-auth" {
             lastName: string;
             name: string;
             profilePicture: string;
+            role: string;
+            accessToken: string;
         }
     }
 
@@ -25,6 +27,8 @@ declare module "next-auth" {
         firstName: string;
         lastName: string;
         profilePicture: string;
+        role: string;
+        accessToken: string;
     }
 
     interface Profile {
@@ -32,6 +36,8 @@ declare module "next-auth" {
         firstName: string;
         lastName: string;
         profilePicture: string;
+        role: string;
+        accessToken: string;
     }
 
 }
@@ -43,5 +49,7 @@ declare module "next-auth/jwt" {
         firstName: string;
         lastName: string;
         profilePicture: string;
+        role: string;
+        accessToken: string;
     }
 }

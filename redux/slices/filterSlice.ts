@@ -6,7 +6,7 @@ interface FilterState {
 }
 
 const initialState: FilterState = {
-    value: ["All"],
+    value: [],
 }
 
 export const filterSlice = createSlice({

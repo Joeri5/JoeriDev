@@ -56,22 +56,33 @@ const RegisterPage = () => {
             return;
         }
         if (!file) return;
-        const promise = new Promise<string | ArrayBuffer | null>(
+        const base64 = await new Promise<string | ArrayBuffer | null>(
             (resolve, reject) => {
-                const reader = new FileReader();
-                reader.readAsDataURL(file);
-                reader.onload = () => {
-                    resolve(reader.result);
+                const image = new Image();
+                image.src = URL.createObjectURL(file);
+                image.onload = () => {
+                    const canvas = document.createElement('canvas');
+                    canvas.width = 200;
+                    canvas.height = 150;
+                    const ctx = canvas.getContext('2d');
+                    // draw the image to the canvas, scaled to the desired size
+                    ctx?.drawImage(image, 0, 0, canvas.width, canvas.height);
+                    // release the object URL
+                    URL.revokeObjectURL(image.src);
+                    // encode the canvas as a base64 string
+                    const dataUrl = canvas.toDataURL('image/jpeg', 0.4);
+                    resolve(dataUrl);
                 };
-                reader.onerror = reject;
+                image.onerror = reject;
             }
         );
-        const base64 = await promise;
         if (typeof base64 === "string") {
             setProfilePicture(base64 as string);
         }
-        ;
     };
+
+
+    // console.log(profilePicture);
 
     if (status === 'authenticated') {
         router.push('/');

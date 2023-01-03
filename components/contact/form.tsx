@@ -58,7 +58,7 @@ const Form = () => {
                         <img src="sign-of-the-horns.png" alt="sign of the horns emoji apple" className="w-8 h-8"/>
                     </div>
                     <p className="text-lynch text-lg text-center max-w-md">
-                        Your message has been accepted. You will recieve answer really soon!
+                        Your message has been accepted. You will receive answer really soon!
                     </p>
                 </div>
             )}

@@ -90,8 +90,8 @@ const Projects = () => {
                                 </div>
                             </div>
                             <div
-                                className={`grid md:grid-cols-2 2xl:grid-cols-3 lg:h-[calc(100vh-9.6375rem)] lg:py-20 lg:px-20 lg:overflow-y-scroll lg:whitespace-normal ${menu ? "hidden lg:grid" : ""}`}>
-                                {filteredProjectData.map((item: { title: string; tag: string; icon: string; color: string; image: string; description: string; link: string; projectTag: string; }, index) => (
+                                className={`grid md:grid-cols-2 lg:grid-cols-1 xl:grid-cols-2 2xl:grid-cols-3 lg:h-[calc(100vh-9.6375rem)] lg:py-20 lg:px-20 lg:overflow-y-scroll lg:whitespace-normal ${menu ? "hidden lg:grid" : ""}`}>
+                                {filteredProjectData.map((item: { title: string; tag: string; icon: string; color: string; image: string; description: string; link: string; projectTag: string; demoLink: string; githubLink: string; }, index) => (
                                     <Project
                                         key={index}
                                         title={item.title}
@@ -100,7 +100,8 @@ const Projects = () => {
                                         color={item.color}
                                         image={item.image}
                                         description={item.description}
-                                        link={item.link}
+                                        link={item.demoLink}
+                                        github={item.githubLink}
                                     />
                                 ))}
                             </div>

@@ -2,9 +2,7 @@ import React, {FormEvent, useState} from 'react';
 import {AdminProvider} from "../../context/adminContext";
 import Head from "next/head";
 import AdminLayout from "../../components/layout/adminLayout";
-import FileStructure from "../../components/admin/fileStructure";
 import axios from "axios";
-import {clearForm} from "../../redux/slices/formSlice";
 import {useSession} from "next-auth/react";
 
 const Project = () => {

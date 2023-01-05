@@ -48,7 +48,6 @@ export default function Home() {
                         </div>
                     </div>
                     <div className="hidden lg:flex lg:items-center">
-                        {/*<img src="/game.svg" alt=""/>*/}
                         <Game/>
                     </div>
                 </main>

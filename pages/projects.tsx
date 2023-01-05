@@ -8,12 +8,14 @@ import Project from "../components/projects/project";
 import {projectData} from "../data/project.data";
 import {selectMenu} from "../redux/slices/menuSlice";
 import axios from "axios";
+import PacmanLoader from "react-spinners/PacmanLoader";
 
 const Projects = () => {
     let activeFilter = useAppSelector(selectFilter)
     const dispatch = useAppDispatch()
     const menu = useAppSelector(selectMenu)
     const [projects, setProjects] = useState([])
+    const [loading, setLoading] = useState(true)
 
     useEffect(() => {
         async function fetchData() {
@@ -24,9 +26,11 @@ const Projects = () => {
             })
         }
 
-        if (document.readyState === 'complete') {
-            fetchData()
-        }
+        setTimeout(() => {
+            fetchData().then(() => {
+                setLoading(false)
+            });
+        }, 1000);
 
     }, [])
 
@@ -102,12 +106,22 @@ const Projects = () => {
                                     />
                                 ))}
                             </div>
-                            {filteredProjectData.length === 0 && (
+                            {loading && (
                                 <div
                                     className="lg:absolute flex flex-col items-center justify-center translate-y-[3.6375rem] lg:h-[calc(100vh-9.6375rem)] lg:w-[calc(100vw-20.425rem)]">
-                                    <img src="/mascot.png" alt="not found" className="w-96"/>
-                                    <p className="text-lynch text-xl lg:mt-10">No projects found</p>
+                                    <PacmanLoader color="#607B96" size={30}/>
                                 </div>
+                            )}
+                            {!loading && (
+                                <>
+                                    {filteredProjectData.length === 0 && (
+                                        <div
+                                            className="lg:absolute flex flex-col items-center justify-center translate-y-[3.6375rem] lg:h-[calc(100vh-9.6375rem)] lg:w-[calc(100vw-20.425rem)]">
+                                            <img src="/mascot.png" alt="not found" className="w-96"/>
+                                            <p className="text-lynch text-xl lg:mt-10">No projects found</p>
+                                        </div>
+                                    )}
+                                </>
                             )}
                         </div>
                     </div>

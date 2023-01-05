@@ -1,19 +1,60 @@
-import React, {useEffect} from 'react';
+import React, {useEffect, useState} from 'react';
 import {useSession} from "next-auth/react";
 import Head from "next/head";
 import AdminLayout from "../../components/layout/adminLayout";
 import {AdminProvider} from "../../context/adminContext";
-import FileStructure from "../../components/admin/fileStructure";
+import axios from "axios";
+import {useAppDispatch, useAppSelector} from "../../redux/store";
+import {selectMenu} from "../../redux/slices/menuSlice";
+import Popup from "../../components/admin/popup";
+import {selectPopup, togglePopup} from "../../redux/slices/popupSlice";
+import {clearAddProject, selectAddProject, toggleAddProject} from "../../redux/slices/addProjectSlice";
 
 const Index = () => {
     const {data: session, status} = useSession();
+    const [projects, setProjects] = useState([]);
+    const [loading, setLoading] = useState(true);
+    const [projectsOpen, setProjectsOpen] = useState(false);
+    const [openProject, setOpenProject] = useState(0);
+    const [edit, setEdit] = useState(0);
+    const [deletingProject, setDeletingProject] = useState(0);
+    const menu = useAppSelector(selectMenu);
+    const popup = useAppSelector(selectPopup);
+    const dispatch = useAppDispatch();
+    const [projectName, setProjectName] = useState("");
+    const [projectImage, setProjectImage] = useState("");
+    const addProject = useAppSelector(selectAddProject);
 
-    //if authenticated and admin, render page
+    // useEffect(() => {
+    //     if (addProject) {
+    //         setProjectsOpen(false);
+    //         setOpenProject(0);
+    //         setEdit(0);
+    //         setDeletingProject(0);
+    //     }
+    // }, []);
 
-    //if authenticated and not admin, redirect to home
 
-    //if not authenticated, redirect to login
+    useEffect(() => {
+        async function fetchData() {
+            await axios.get('/api/project/read').then((response) => {
+                setProjects(response.data)
+            }).catch((error) => {
+                console.log(error)
+            })
+        }
 
+        setTimeout(() => {
+            fetchData().then(() => {
+                setLoading(false)
+            });
+        }, 1000);
+
+    }, []);
+
+    console.log(projects)
+
+    console.log(session?.user.accessToken)
 
     return (
         <>
@@ -25,8 +66,104 @@ const Index = () => {
                     <link rel="icon" href="/icon.svg"/>
                 </Head>
                 <AdminLayout>
-                    <main className="h-full bg-midnight text-lynch">
-                        <FileStructure/>
+                    <main className="h-full bg-midnight text-lynch flex">
+                        <div className="">
+                            <div className="lg:w-[26.2vw] border-r-2 border-mirage h-[calc(100vh-3.5rem)]">
+                                <div onClick={() => setProjectsOpen(!projectsOpen)}
+                                     className="flex items-center gap-5 text-white border-b-2 py-2 px-5 border-mirage  hover:cursor-pointer">
+                                    <img src="/arrow.svg" alt="arrow svg"
+                                         className={`h-2.5 w-2.5 ${projectsOpen ? "" : "-rotate-90"} ${menu ? "opacity-0" : ""}`}/>
+                                    projects
+                                </div>
+                                <ul className={`px-12 py-5 ${projectsOpen && "border-b-2 border-mirage"}`}>
+                                    {projectsOpen && projects.map((project: { title: string; id: number; image: string; }, index) => {
+                                        return (
+                                            <>
+                                                <li className="flex gap-5 pb-1.5 items-center hover:cursor-pointer"
+                                                    onClick={() => (openProject === project.id ? setOpenProject(0) : setOpenProject(project.id))}
+                                                    key={index}
+                                                >
+                                                    <img src="/arrow-right.svg" alt="arrow svg"
+                                                         className={`h-2.5 w-2.5 ${openProject === project.id ? "rotate-90" : ""} ${menu ? "opacity-0" : ""}`}/>
+                                                    <img src="/folder-pink.svg" alt="pink folder"/>
+                                                    {project.title}
+                                                </li>
+                                                {openProject === project.id &&
+                                                    <ul className="px-7 py-2 space-y-3">
+                                                        <li
+                                                            className="flex items-center gap-5 hover:cursor-pointer"
+                                                            onClick={() => (edit === project.id ? (setEdit(0), dispatch(clearAddProject())) : setEdit(project.id), dispatch(clearAddProject()))}
+                                                        >
+                                                            <svg xmlns="http://www.w3.org/2000/svg" fill="none"
+                                                                 viewBox="0 0 24 24" strokeWidth={1.5}
+                                                                 stroke="currentColor" className="w-5 h-5">
+                                                                <path strokeLinecap="round" strokeLinejoin="round"
+                                                                      d="M9 13.5l3 3m0 0l3-3m-3 3v-6m1.06-4.19l-2.12-2.12a1.5 1.5 0 00-1.061-.44H4.5A2.25 2.25 0 002.25 6v12a2.25 2.25 0 002.25 2.25h15A2.25 2.25 0 0021.75 18V9a2.25 2.25 0 00-2.25-2.25h-5.379a1.5 1.5 0 01-1.06-.44z"/>
+                                                            </svg>
+                                                            edit
+                                                        </li>
+                                                        <li onClick={() => (setDeletingProject(project.id), dispatch(togglePopup()), setProjectName(project.title), setProjectImage(project.image))}
+                                                            className="flex items-center gap-5 hover:cursor-pointer">
+                                                            <svg xmlns="http://www.w3.org/2000/svg" fill="none"
+                                                                 viewBox="0 0 24 24" strokeWidth={1.5}
+                                                                 stroke="currentColor" className="w-5 h-5">
+                                                                <path strokeLinecap="round" strokeLinejoin="round"
+                                                                      d="M15 13.5H9m4.06-7.19l-2.12-2.12a1.5 1.5 0 00-1.061-.44H4.5A2.25 2.25 0 002.25 6v12a2.25 2.25 0 002.25 2.25h15A2.25 2.25 0 0021.75 18V9a2.25 2.25 0 00-2.25-2.25h-5.379a1.5 1.5 0 01-1.06-.44z"/>
+                                                            </svg>
+                                                            delete
+                                                        </li>
+                                                    </ul>
+                                                }
+                                            </>
+                                        )
+                                    })}
+                                </ul>
+                            </div>
+                        </div>
+                        {addProject && (
+                            <div className="py-2 px-5 lg:w-[73.8vw] h-[calc(100vh-3.5rem)]">
+                                add
+                            </div>
+                        )}
+                        {projects.map((project: {
+                            title: string;
+                            tag: string;
+                            icon: string;
+                            color: string;
+                            image: string;
+                            description: string;
+                            link: string,
+                            id: number
+                        }, index) => (
+                            <div key={index}>
+                                {edit === project.id && openProject === project.id && projectsOpen && !addProject && (
+                                    <>
+                                        <div className="lg:w-[73.8vw] h-[calc(100vh-3.5rem)]">
+                                            <div className="flex flex-col space-y-5">
+                                                <div className="flex flex-col space-y-2">
+                                                    <label htmlFor="title">title</label>
+                                                    <input type="text" id="title" name="title"
+                                                           defaultValue={project.title}/>
+                                                </div>
+                                                <div className="flex flex-col space-y-2">
+                                                    <label htmlFor="tag">tag</label>
+                                                    <input type="text" id="tag" name="tag" defaultValue={project.tag}/>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </>
+                                )}
+                            </div>
+                        ))}
+                        {popup && (
+                            <>
+                                <div
+                                    className="absolute w-screen h-screen bg-black/30 backdrop-blur-xl top-0 z-10"
+                                    onClick={() => dispatch(togglePopup())}>
+                                </div>
+                                <Popup title={projectName} image={projectImage} id={deletingProject}/>
+                            </>
+                        )}
                     </main>
                 </AdminLayout>
             </AdminProvider>

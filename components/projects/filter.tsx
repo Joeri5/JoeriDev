@@ -69,7 +69,7 @@ const Filter = () => {
     if (activeFilter.length === 0) {
         filter.map(item => item.active = false)
     }
-
+    
     // dispatch({type: 'filter/setFilter', payload: filter.map(item => item.active === true ? item.name : null)})
 
     return (

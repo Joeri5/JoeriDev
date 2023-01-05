@@ -34,11 +34,9 @@ const Projects = () => {
 
     }, [])
 
-    console.log(activeFilter)
-
-    const filteredProjectData = projects.filter((p: { tag: string }) => {
+    const filteredProjectData = projects.filter((p: { projectTag: string }) => {
         if (activeFilter.length === 0) return [...projectData];
-        return activeFilter.some(filter => p.tag.includes(filter));
+        return activeFilter.some(filter => p.projectTag.includes(filter));
     });
 
     const clearFilter = () => {
@@ -93,7 +91,7 @@ const Projects = () => {
                             </div>
                             <div
                                 className={`grid md:grid-cols-2 2xl:grid-cols-3 lg:h-[calc(100vh-9.6375rem)] lg:py-20 lg:px-20 lg:overflow-y-scroll lg:whitespace-normal ${menu ? "hidden lg:grid" : ""}`}>
-                                {filteredProjectData.map((item: { title: string; tag: string; icon: string; color: string; image: string; description: string; link: string }, index) => (
+                                {filteredProjectData.map((item: { title: string; tag: string; icon: string; color: string; image: string; description: string; link: string; projectTag: string; }, index) => (
                                     <Project
                                         key={index}
                                         title={item.title}

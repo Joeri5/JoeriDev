@@ -63,8 +63,9 @@ const Code = ({code, timeStamp, detailsContent}: Props) => {
                         </p>
                     </div>
                 </div>
-                <div className="flex items-center space-x-5" onClick={() => setDetails(!details)}>
-                    <img src="/details.svg" alt="details icon" className="w-5 h-5"/>
+                <div className="flex items-center space-x-5 lg:space-x-2 xl:space-x-5"
+                     onClick={() => setDetails(!details)}>
+                    <img src="/details.svg" alt="details icon" className="w-5 h-5 lg:w-3 lg:h-3 xl:w-5 xl:h-5"/>
                     <p className="text-lynch">details</p>
                 </div>
             </div>

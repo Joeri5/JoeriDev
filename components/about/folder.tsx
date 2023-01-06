@@ -85,7 +85,31 @@ const Folder = () => {
                                                          * and enjoy working out at the gym to 
                                                          * maintain my health and well-being.
                                                      **/`,
-                                    contentMobile: ``
+                                    contentMobile: `/**
+                                                          Interests
+                                                          In my free time, I enjoy 
+                                                          participating in a variety of 
+                                                          activities that allow me to relax and 
+                                                          unwind. One of my favorite hobbies is 
+                                                          playing on my Xbox, as it allows me 
+                                                          to disconnect from the stresses of 
+                                                          work and have some fun. I also value 
+                                                          my relationships with my friends and 
+                                                          family, and enjoy spending time with 
+                                                          them at social events and gatherings.
+                                                         
+                                                          In addition to these more leisurely 
+                                                          pursuits, I am also passionate about 
+                                                          continuing to learn and grow in my
+                                                          field as a software engineer. I enjoy 
+                                                          self-study, and frequently seek out 
+                                                          new technologies and opportunities to 
+                                                          broaden my horizon and deepen my 
+                                                          knowledge. Lastly, I am a big believer 
+                                                          in the importance of physical fitness, 
+                                                          and enjoy working out at the gym to 
+                                                          maintain my health and well-being.
+                                                     */`
                                 }
                             ]
                         }
@@ -122,7 +146,32 @@ const Folder = () => {
                                                          * foundation in software development and 
                                                          * continuously improve my skills.
                                                      **/`,
-                                    contentMobile: ``
+                                    contentMobile: `/**
+                                                          Education
+                                                          In my formal education, I have 
+                                                          completed an informatics class at 
+                                                          High School and am currently enrolled
+                                                          in the Software Development course at 
+                                                          Mediacollege Amsterdam. This four-
+                                                          year program is designed to provide a 
+                                                          comprehensive education in software 
+                                                          development, and I have been able to 
+                                                          complete the first two years in just 
+                                                          one year, reducing the total length of 
+                                                          the program to three years.
+                                                          
+                                                          In addition to my formal education, I 
+                                                          have also gained valuable experience 
+                                                          through self-study and personal 
+                                                          projects. I have spent many hours 
+                                                          learning through online courses and 
+                                                          watching YouTube tutorials, and have 
+                                                          completed several projects on my own 
+                                                          time. This self-directed learning has 
+                                                          allowed me to develop a strong 
+                                                          foundation in software development and 
+                                                          continuously improve my skills.
+                                                     */`
                                 }
                             ]
                         }
@@ -161,7 +210,30 @@ const Folder = () => {
                                                          * constantly learning and growing in my 
                                                          * career.
                                                      **/`,
-                                    contentMobile: ``
+                                    contentMobile: `/**
+                                                         Professional information
+                                                         Hi there! My name is Joeri Schenk
+                                                         and I am a software engineer
+                                                          with a strong background in web
+                                                         development. I began my career by
+                                                         writing simple HTML websites, and
+                                                         later pursued a formal education at
+                                                         High School Since then, I have been 
+                                                         continuously learning and expanding my 
+                                                         skillset, with a focus on languages 
+                                                         such as Javascript, Typescript, Java, 
+                                                         and Nodejs.
+                                                        
+                                                         I am currently enrolled in the 
+                                                         Software Development course at 
+                                                         Mediacollege Amsterdam, where I am 
+                                                         learning the latest best practices and 
+                                                         technologies in the field. My ultimate 
+                                                         goal is to become a proficient and 
+                                                         experienced software developer, 
+                                                         constantly learning and growing in my 
+                                                         career.
+                                                     */`
                                 }
                             ]
                         }
@@ -202,7 +274,32 @@ const Folder = () => {
                                                          * find working with computers to be a 
                                                          * rewarding and enjoyable hobby.
                                                      **/`,
-                                    contentMobile: ``
+                                    contentMobile: `/**
+                                                          Professional information
+                                                          In my free time, I enjoy a variety of 
+                                                          hobbies and interests that allow me 
+                                                          to relax and unwind. One of my 
+                                                          favorite activities is spending time 
+                                                          with friends and family, whether it's 
+                                                          hosting a game night at home or 
+                                                          planning a day out to a local museum 
+                                                          or attraction. I am also an avid 
+                                                          fitness enthusiast, and enjoy working 
+                                                          out at the gym or going for runs in my 
+                                                          spare time.
+                                                          
+                                                          Another passion of mine is travel, and 
+                                                          I love exploring new places and 
+                                                          cultures. I also have a strong 
+                                                          interest in computers and technology, 
+                                                          and enjoy tinkering with computers, 
+                                                          learning about how they work both 
+                                                          internally and externally. Whether I'm 
+                                                          building a new system from scratch or 
+                                                          simply troubleshooting an issue, I 
+                                                          find working with computers to be a 
+                                                          rewarding and enjoyable hobby.
+                                                     */`
                                 }
                             ]
                         }
@@ -226,7 +323,15 @@ const Folder = () => {
                                                          * github: Joeri5
                                                          *
                                                      **/`,
-                                    contentMobile: ``
+                                    contentMobile: `/**
+                                                         Contact
+                                                        
+                                                         email: joerischenk@icloud.com
+                                                         phone: +31 6 24 77 87 97
+                                                         linkedin: Joeri Schenk
+                                                         github: Joeri5
+                                                         
+                                                     */`
                                 }
                             ]
                         }

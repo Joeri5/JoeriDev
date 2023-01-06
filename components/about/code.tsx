@@ -5,9 +5,10 @@ interface Props {
     code: string
     timeStamp: string
     detailsContent: string
+    language: string
 }
 
-const Code = ({code, timeStamp, detailsContent}: Props) => {
+const Code = ({code, timeStamp, detailsContent, language}: Props) => {
 
     const [timeAgo, setTimeAgo] = useState("");
     const [details, setDetails] = useState(false);
@@ -70,7 +71,7 @@ const Code = ({code, timeStamp, detailsContent}: Props) => {
                 </div>
             </div>
             <div className="text-xs 2xl:text-sm">
-                <Highlight className="typescript">
+                <Highlight className={language}>
                     {code}
                 </Highlight>
             </div>

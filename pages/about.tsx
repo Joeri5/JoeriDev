@@ -2,10 +2,8 @@ import React, {useState} from 'react';
 import Head from "next/head";
 import Layout from "../components/layout/layout";
 import {useAppSelector} from "../redux/store";
-import {selectMenu} from "../redux/slices/menuSlice";
 import Folder from "../components/about/folder";
 import {selectFile} from "../redux/slices/fileSlice";
-import Highlight from 'react-highlight'
 import Code from "../components/about/code";
 import {codeData} from "../data/code.data";
 
@@ -56,6 +54,7 @@ const About = () => {
                                         code={code.code}
                                         timeStamp={code.timeStamp}
                                         detailsContent={code.detailsContent}
+                                        language={code.language}
                                     />
                                 ))}
                             </div>
@@ -68,6 +67,7 @@ const About = () => {
                                     code={code.code}
                                     timeStamp={code.timeStamp}
                                     detailsContent={code.detailsContent}
+                                    language={code.language}
                                 />
                             ))}
                         </div>
